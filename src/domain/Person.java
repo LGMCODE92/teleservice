@@ -1,10 +1,12 @@
 package domain;
 
 public class Person {
-    private String userName;
+	
+    private String operator;
     private String password;
     private boolean deleted;
-    private String dni;
+    private String userName;
+    private String document;
     private String tf;
     private String address;
     private String healthStatus;
@@ -15,6 +17,36 @@ public class Person {
     private String warning;
     private String typeUser;
     private String error;
+    
+    /**
+	 * @return the operator
+	 */
+	public String getOperator() {
+		return operator;
+	}
+
+	/**
+	 * @param operator the operator to set
+	 */
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	/**
+	 * @return the document
+	 */
+	public String getDocument() {
+		return document;
+	}
+
+	/**
+	 * @param document the document to set
+	 */
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
+	
     /**
      * @param error the error to set
      */
@@ -33,14 +65,14 @@ public class Person {
      * @return String return the userName
      */
     public String getUserName() {
-        return userName;
+        return operator;
     }
 
     /**
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.operator = userName;
     }
 
     /**
@@ -76,7 +108,7 @@ public class Person {
         if (password == null || password.length() < 3){
             throw new Exception("La contraseña es obligatoria y tiene que tener como minimo 4 caracteres");
         }
-        if (userName == null || userName.length() < 2){
+        if (operator == null || operator.length() < 2){
             throw new Exception("El nombre de usuario es obligatorio y tiene que tener como minimo 2 caracteres");
         }
         
@@ -87,14 +119,14 @@ public class Person {
      * @return String return the dni
      */
     public String getDni() {
-        return dni;
+        return document;
     }
 
     /**
      * @param dni the dni to set
      */
     public void setDni(String dni) {
-        this.dni = dni;
+        this.document = dni;
     }
 
     /**
