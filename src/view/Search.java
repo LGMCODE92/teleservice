@@ -14,7 +14,7 @@ public class Search extends JFrame {
 	private JTextField txtBuscar;
 
 
-	//comentario DOBLE
+	//comentario DOBLE, doble es lo que yo quiero
 	
 	
 	/**
