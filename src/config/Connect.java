@@ -11,7 +11,7 @@ public class Connect {
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:/Users/miria/Desktop/Luis/PROYECTO JAVA/Nueva carpeta/SQLiteStudio/teleasistencia.db";
+            String url = "jdbc:sqlite:../PROYECTO JAVA/Nueva carpeta/SQLiteStudio/teleasistencia.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {

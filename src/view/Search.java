@@ -11,11 +11,7 @@ import javax.swing.JTextField;
 public class Search extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtBuscar;
-
-
-	//comentario DOBLE, doble es lo que yo quiero
-	
+	private JTextField txtBuscar;	
 	
 	/**
 	 * Create the frame.
