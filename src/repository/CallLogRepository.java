@@ -4,6 +4,7 @@
 package repository;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import domain.CallLog;
@@ -31,7 +32,7 @@ public class CallLogRepository {
 					+ "DELETED"
 					+ "VALUES(?,?,?,?,?,?,?);";
 			try (PreparedStatement ps=conn.prepareStatement(sql)){
-				
+				ps.setString(1, entity.getOperator());
 			}
 			
 		}catch (SQLException e) {
