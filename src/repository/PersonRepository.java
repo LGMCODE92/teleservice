@@ -13,9 +13,7 @@ import java.sql.ResultSetMetaData;
 import domain.Person;
 
 public class PersonRepository  {
-	
-	
-	
+
 
 	
    /**
