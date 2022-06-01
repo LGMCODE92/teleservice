@@ -7,11 +7,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class Search extends JFrame {
 
 	private JPanel contentPane;
+<<<<<<< HEAD
 	private JTextField txtBuscar;	
+=======
+	private JTextField txtUser;
+	private JButton btnNewButton_1;
+
+
+	//comentario DOBLE
+	
+>>>>>>> origin/Sofia
 	
 	/**
 	 * Create the frame.
@@ -25,10 +36,21 @@ public class Search extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		txtBuscar = new JTextField();
-		txtBuscar.setText("BUSCAR");
-		txtBuscar.setBounds(147, 105, 96, 20);
-		contentPane.add(txtBuscar);
-		txtBuscar.setColumns(10);
+		txtUser = new JTextField();
+		txtUser.setBounds(96, 83, 96, 20);
+		contentPane.add(txtUser);
+		txtUser.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Introduzca el dni o teléfono del paciente o de algún dato de contacto:");
+		lblNewLabel.setBounds(52, 58, 362, 14);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton = new JButton("BUSCAR");
+		btnNewButton.setBounds(228, 82, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		btnNewButton_1 = new JButton("Configuraci\u00F3n");
+		btnNewButton_1.setBounds(155, 193, 127, 23);
+		contentPane.add(btnNewButton_1);
 	}
 }
