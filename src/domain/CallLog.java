@@ -3,8 +3,7 @@
  */
 package domain;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.sql.Date;
 
 public class CallLog {
 	
@@ -13,8 +12,9 @@ public class CallLog {
 	private String document;
     private String callReason;
     private String contactPerson;
-    private GregorianCalendar hour;
     private Date date;
+    private boolean deleted;
+    private String error;
     
     /**
 	 * @return the operator
@@ -64,18 +64,8 @@ public class CallLog {
 	public void setContactPerson(String contactPerson) {
 		this.contactPerson = contactPerson;
 	}
-	/**
-	 * @return the hour
-	 */
-	public GregorianCalendar getHour() {
-		return hour;
-	}
-	/**
-	 * @param hour the hour to set
-	 */
-	public void setHour(GregorianCalendar hour) {
-		this.hour = hour;
-	}
+
+
 	/**
 	 * @return the date
 	 */

@@ -4,7 +4,6 @@ public class Person {
 	
     private String operator;
     private String password;
-    private boolean deleted;
     private String userName;
     private String document;
     private String tf;
@@ -16,6 +15,7 @@ public class Person {
     private String sex;
     private String warning;
     private String typeUser;
+    private boolean deleted;
     private String error;
     
     /**
@@ -65,14 +65,14 @@ public class Person {
      * @return String return the userName
      */
     public String getUserName() {
-        return operator;
+        return userName;
     }
 
     /**
      * @param userName the userName to set
      */
     public void setUserName(String userName) {
-        this.operator = userName;
+        this.userName = userName;
     }
 
     /**
@@ -115,19 +115,6 @@ public class Person {
         
     }
 
-    /**
-     * @return String return the dni
-     */
-    public String getDni() {
-        return document;
-    }
-
-    /**
-     * @param dni the dni to set
-     */
-    public void setDni(String dni) {
-        this.document = dni;
-    }
 
     /**
      * @return String return the tf

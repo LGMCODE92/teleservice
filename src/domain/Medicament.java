@@ -13,6 +13,35 @@ public class Medicament {
 	private String laboratory;
 	private String baseMedicine;
 	private int amount;
+	private String userDocument;
+	private boolean deleted;
+	private String error;
+	
+	/**
+	 * @return the deleted
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+	/**
+	 * @param deleted the deleted to set
+	 */
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
+	/**
+	 * @return the userDocument
+	 */
+	public String getUserDocument() {
+		return userDocument;
+	}
+	/**
+	 * @param userDocument the userDocument to set
+	 */
+	public void setUserDocument(String userDocument) {
+		this.userDocument = userDocument;
+	}
 	//falta la medida que podríamos hacer que seleccione de un array.
 	/**
 	 * @return the name
