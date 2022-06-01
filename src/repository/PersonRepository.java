@@ -34,10 +34,11 @@ public class PersonRepository  {
 		
 		
 		try {
-			String sql = "INSERT INTO PERSON ( " + 
-					"USER_NAME, " + //1
+			String sql = "INSERT INTO PERSONS ( " + 
+					"OPERATOR, " + //1
 					"PASSWORD, " +  
-					"DNI, " +  
+					"USERNAME, "
+					+ "DOCUMENT," +  
 					"TF, " +  
 					"ADDRESS, " +  
 					"HEALTH_STATUS, " +  
@@ -51,19 +52,20 @@ public class PersonRepository  {
   				    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
 
 				try (PreparedStatement ps = conn.prepareStatement(sql)) {
-					ps.setString(1, entity.getUserName());
+					ps.setString(1, entity.getOperator());
 					ps.setString(2, entity.getPassword());
-					ps.setString(3, entity.getDni());
-					ps.setString(4, entity.getTf());
-					ps.setString(5, entity.getAddress());
-					ps.setString(6, entity.getHealthStatus());
-					ps.setString(7, entity.getHelpHome());
-					ps.setString(8, entity.getCivilStatus());
-					ps.setString(9, entity.getDateBirth());
-					ps.setString(10, entity.getSex());
-					ps.setString(11, entity.getWarning());
-					ps.setString(12, entity.getTypeUser());
-					ps.setObject(13, false);
+					ps.setString(3, entity.getUserName());
+					ps.setString(4, entity.getDocument());
+					ps.setString(5, entity.getTf());
+					ps.setString(6, entity.getAddress());
+					ps.setString(7, entity.getHealthStatus());
+					ps.setString(8, entity.getHelpHome());
+					ps.setString(9, entity.getCivilStatus());
+					ps.setString(10, entity.getDateBirth());
+					ps.setString(11, entity.getSex());
+					ps.setString(12, entity.getWarning());
+					ps.setString(13, entity.getUserName());
+					ps.setObject(14, false);
 					ps.execute();			
 				}
 
@@ -77,9 +79,9 @@ public class PersonRepository  {
 		Statement stmt = null;
         try{
             stmt = conn.createStatement();
-            String sql = "CREATE TABLE  PERSON (" +
-                   " USER_NAME  TEXT   PRIMARY KEY  NOT NULL, " + 
-                   " PASSWORD       TEXT     NOT NULL, " +
+            String sql = "CREATE TABLE  PERSONS (" +
+                   " OPERATOR  TEXT NOT NULL, " + 
+                   " PASSWORD TEXT NOT NULL, " +
                    " DELETED        BOOLEAN)"; 
             stmt.executeUpdate(sql);
             stmt.close();
@@ -97,7 +99,7 @@ public class PersonRepository  {
 		Statement stmt = null;
         try{
             stmt = conn.createStatement();
-            String sql = "DROP TABLE PERSON"; 
+            String sql = "DROP TABLE PERSONS"; 
             stmt.executeUpdate(sql);
             stmt.close();
         }
@@ -123,7 +125,7 @@ public class PersonRepository  {
 
 
 		// SQL Query
-		String sqlUpdate = "UPDATE PERSON SET PASSWORD=?"+ 
+		String sqlUpdate = "UPDATE PERSONS SET PASSWORD=?"+ 
 		"WHERE USER_NAME = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
@@ -150,7 +152,7 @@ public class PersonRepository  {
 
 	
 		// SQL Query
-		String sqlUpdate = "UPDATE PERSON SET DELETED=?"+ 
+		String sqlUpdate = "UPDATE PERSONS SET DELETED=?"+ 
 		"WHERE USER_NAME = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
