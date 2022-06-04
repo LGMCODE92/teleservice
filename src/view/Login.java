@@ -28,68 +28,94 @@ import javax.swing.border.EmptyBorder;
 import controller.TeleserviceController;
 import domain.Person;
 
-
 public class Login extends JFrame {
-	
-    public Person person;
+
+	public Person person;
 	private JPanel contentPane;
 	private JTextField txtUser;
 	private JPasswordField passwordField;
-    private TeleserviceController teleserviceController;
-
+	private TeleserviceController teleserviceController;
 
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
-        teleserviceController = new TeleserviceController();
-        //cerrar ventana 
+		KeyListener redirectEvent = new KeyListener() {
+
+			public void keyTyped(KeyEvent e) {
+				// Aqui no funcionara
+			}
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+
+					// enterButton.doClick();
+					Person res = teleserviceController.login(txtUser.getText(),
+							new String(passwordField.getPassword()));
+					if (null == res.getError()) {
+
+						Search frame = new Search();
+						frame.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, res.getError());
+					}
+
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+				// Aqui tambien puedes insertar el codigo
+			}
+		};
+		teleserviceController = new TeleserviceController();
+		// cerrar ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//titulo e icono de la ventana
+
+		// titulo e icono de la ventana
 		setTitle("Login");
 		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
 		setIconImage(img);
-		
-		//centrar el frame en la pantalla
+
+		// centrar el frame en la pantalla
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
-	    int height = pantalla.height;
-	    int width = pantalla.width;
-		setBounds(width/4, height/4, 800, 700);
+		int height = pantalla.height;
+		int width = pantalla.width;
+		setBounds(width / 4, height / 4, 800, 700);
 		setLocationRelativeTo(null);
-		
-		//no maximizar
+
+		// no maximizar
 		setResizable(false);
-		
-		//componentes
+
+		// componentes
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBackground(new Color(245, 245, 245));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		String usuario="Usuario";
+
+		String usuario = "Usuario";
 		JLabel user = new JLabel(usuario);
 		user.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		user.setBounds(210, 315, 365, 52);
 		contentPane.add(user);
-		
+
 		txtUser = new JTextField();
 		txtUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUser.setBorder(null);
 		txtUser.setBackground(Color.WHITE);
 		txtUser.setBounds(210, 363, 365, 38);
+		txtUser.addKeyListener(redirectEvent);
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
-		
-		String contraseña="Contraseña";
+
+		String contraseña = "Contraseña";
 		JLabel password = new JLabel(contraseña);
 		password.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		password.setBounds(210, 425, 365, 58);
 		contentPane.add(password);
 
-		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		passwordField.setBorder(null);
@@ -98,33 +124,34 @@ public class Login extends JFrame {
 			}
 		});
 		passwordField.setBounds(210, 475, 365, 38);
+		passwordField.addKeyListener(redirectEvent);
 		contentPane.add(passwordField);
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/images/user.png")));
 		lblNewLabel.setBounds(250, 11, 285, 313);
 		contentPane.add(lblNewLabel);
-		
+
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.DARK_GRAY);
 		separator.setBounds(210, 404, 365, 2);
 		contentPane.add(separator);
-		
+
 		JSeparator separator2 = new JSeparator();
 		separator2.setBackground(Color.DARK_GRAY);
 		separator2.setBounds(210, 513, 365, 2);
 		contentPane.add(separator2);
-		
-		String entrar="Entrar";
+
+		String entrar = "Entrar";
 		JButton enterButton = new JButton(entrar) {
 			@Override
-            public JToolTip createToolTip() {
-                JToolTip toolTip = super.createToolTip();
-                toolTip.setBackground(Color.LIGHT_GRAY);
-                toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
-                toolTip.setBorder(null);
-                return toolTip;
-            }
+			public JToolTip createToolTip() {
+				JToolTip toolTip = super.createToolTip();
+				toolTip.setBackground(Color.LIGHT_GRAY);
+				toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				toolTip.setBorder(null);
+				return toolTip;
+			}
 		};
 		enterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		enterButton.setBorder(null);
@@ -134,52 +161,24 @@ public class Login extends JFrame {
 		enterButton.setIcon(new ImageIcon(getClass().getResource("../images/enter.png")));
 		enterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                Person res = teleserviceController.login(txtUser.getText(),new String(passwordField.getPassword()));
-                if ( null == res.getError()){
-                   
+				Person res = teleserviceController.login(txtUser.getText(), new String(passwordField.getPassword()));
+				if (null == res.getError()) {
+
 					Search frame = new Search();
 					frame.setVisible(true);
 					dispose();
-                }else {
-                    JOptionPane.showMessageDialog(null, res.getError());
-                }
-				
+				} else {
+					JOptionPane.showMessageDialog(null, res.getError());
+				}
+
 			}
-			
-			
+
 		});
-		
-		
-		enterButton.addKeyListener(new KeyListener(){
-		
-            public void keyTyped(KeyEvent e){
-                //Aqui no funcionara
-            }
-            public void keyPressed(KeyEvent e){
-            	if (e.getExtendedKeyCode()==KeyEvent.VK_ENTER) {
-    			    
-			    	//enterButton.doClick();
-			    Person res = teleserviceController.login(txtUser.getText(),new String(passwordField.getPassword()));
-                if ( null == res.getError()){
-                   
-					Search frame = new Search();
-					frame.setVisible(true);
-					dispose();
-                }else {
-                    JOptionPane.showMessageDialog(null, res.getError());
-                }
-				
-			  }
-            }
-            public void keyReleased(KeyEvent e){
-                //Aqui tambien puedes insertar el codigo
-            }
-        });
-		
-		
+
+		enterButton.addKeyListener(redirectEvent);
+
 		enterButton.setBounds(210, 554, 365, 38);
 		contentPane.add(enterButton);
-		
 
 	}
 }

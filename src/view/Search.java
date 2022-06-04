@@ -18,87 +18,121 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
+
+import domain.CallLog;
+import domain.Medicament;
+import domain.Person;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Search extends JFrame {
 
-	//declaración de variables
+	// declaración de variables
 	private JPanel contentPane;
-	private JTextField txtBuscar;	
+	private JTextField txtBuscar;
 	private JTextField txtSearch;
 	private JButton btnNewButton_1;
-
 
 	/**
 	 * Create the frame.
 	 */
 	public Search() {
-		
+
 		setTitle("Search");
 		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
 		setIconImage(img);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 
-		//centrar el frame en la pantalla
+		// centrar el frame en la pantalla
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = pantalla.height;
 		int width = pantalla.width;
-		setBounds(width/4, height/4, 800, 700);
+		setBounds(width / 4, height / 4, 800, 700);
 		setLocationRelativeTo(null);
-		
-		//no maximizar
+
+		// no maximizar
 		setResizable(false);
 
 		txtSearch = new JTextField();
 		txtSearch.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		//para limitar la longitud a 10 caracteres
+		// para limitar la longitud a 10 caracteres
 		txtSearch.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(txtSearch.getText().length() >= 10)
-			    {
-			        e.consume();
-			    }
+				if (txtSearch.getText().length() >= 10) {
+					e.consume();
+				}
 			}
 		});
 		txtSearch.setBounds(256, 255, 223, 50);
 		contentPane.add(txtSearch);
-		//txtSearch.setColumns(10);
-		
+		// txtSearch.setColumns(10);
+
 		JLabel searchLabel = new JLabel("Introduzca el dni o teléfono del paciente o de algún dato de contacto:");
 		searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		searchLabel.setBounds(76, 178, 634, 66);
 		contentPane.add(searchLabel);
-		
+
 		JButton searchButton = new JButton("") {
 			@Override
-            public JToolTip createToolTip() {
-                JToolTip toolTip = super.createToolTip();
-                toolTip.setBackground(Color.LIGHT_GRAY);
-                toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
-                toolTip.setBorder(null);
-                return toolTip;
-            }
+			public JToolTip createToolTip() {
+				JToolTip toolTip = super.createToolTip();
+				toolTip.setBackground(Color.LIGHT_GRAY);
+				toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				toolTip.setBorder(null);
+				return toolTip;
+			}
 		};
 		searchButton.setBorder(null);
-		searchButton.setBackground(new Color(240,240,240));
+		searchButton.setBackground(new Color(240, 240, 240));
 		searchButton.setToolTipText("Buscar");
 		searchButton.setIcon(new ImageIcon(getClass().getResource("../images/search.png")));
 		searchButton.setToolTipText("Buscar");
 		searchButton.setBounds(489, 255, 53, 50);
+
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (txtSearch.getText().length() == 9) {
+					//
+					//
+					if (txtSearch.getText().toUpperCase().matches("[0-9]{9}")) {
+						// seteamos TF
+						System.out.println("TF");
+					} else if (txtSearch.getText().substring(0, 8).matches("[0-9]{8}")
+							&& txtSearch.getText().substring(8, 9).matches("[A-Z]*")) {
+						// seteamos DNI
+						System.out.println("DNI");
+					}
+					Person detalle = null; // llamamos al controlador que nos busca el detalle
+					detalle = getPersonMock();
+
+					if (null == detalle.getError()) {
+						User frame = new User(detalle);
+						frame.setVisible(true);
+						dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, detalle.getError());
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "DNI o TF incorrecto");
+				}
+
+			}
+
+		});
 		contentPane.add(searchButton);
-		
-		
-		
-		
-		String config=" Configuración";
+
+		String config = " Configuración";
 		JButton configButton = new JButton(config);
 		configButton.setBorder(null);
 		configButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -114,5 +148,53 @@ public class Search extends JFrame {
 		});
 		configButton.setBounds(285, 350, 215, 38);
 		contentPane.add(configButton);
+	}
+	
+	private Person getPersonMock() {
+		Person response = new Person();
+		response.setAddress("C/ Pantoja");
+		response.setCivilStatus("Soltero");
+		response.setDateBirth("25/08/1991");
+		response.setDocument("12345678K");
+		response.setHealthStatus("Enfermo");
+		response.setHelpHome("SI");
+		response.setTypeUser("P");
+		response.setTf("678987676");
+		response.setSex("Sr");
+		
+		Person contact = new Person();
+		contact.setTypeUser("C");
+		contact.setUserName("Geremias");
+		contact.setTf("654654654");
+		contact.setDocument("12345678G");
+		List<Person> contactlist = new ArrayList();
+		contactlist.add(contact);
+		Medicament medicament = new Medicament();
+		medicament.setName("Ibuprofeno");
+		medicament.setBaseMedicine("P. Activo 1");
+		medicament.setLaboratory("Cinfa");
+		medicament.setAmount(3);
+		
+		Medicament medicament2 = new Medicament();
+		medicament2.setName("Paracetamol");
+		medicament2.setBaseMedicine("P. Activo 1");
+		medicament2.setLaboratory("Pfizer");
+		medicament2.setAmount(5);
+		
+		List<Medicament> medicamentlist = new ArrayList();
+		medicamentlist.add(medicament);
+		medicamentlist.add(medicament2);
+		CallLog callLog = new CallLog();
+		callLog.setCallReason("Emergencia");
+		callLog.setContactPerson(getName());
+		callLog.setDate(new Date(01/01/2022));
+		callLog.setDocument("12345678G");
+		List<CallLog> callLoglist = new ArrayList();
+		callLoglist.add(callLog);
+		
+		response.setCallLogList(callLoglist);
+		response.setMedicamentList(medicamentlist);
+		response.setContactsList(contactlist);
+		return response;
 	}
 }

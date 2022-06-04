@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public class Person {
 	
     private String operator;
@@ -17,6 +19,33 @@ public class Person {
     private String typeUser;
     private boolean deleted;
     private String error;
+    public List<Medicament> getMedicamentList() {
+		return medicamentList;
+	}
+
+	public void setMedicamentList(List<Medicament> medicamentList) {
+		this.medicamentList = medicamentList;
+	}
+
+	public List<Person> getContactsList() {
+		return contactsList;
+	}
+
+	public void setContactsList(List<Person> contactsList) {
+		this.contactsList = contactsList;
+	}
+
+	public List<CallLog> getCallLogList() {
+		return callLogList;
+	}
+
+	public void setCallLogList(List<CallLog> callLogList) {
+		this.callLogList = callLogList;
+	}
+
+	private List<Medicament> medicamentList;
+    private List<Person> contactsList;
+    private List<CallLog> callLogList;
     
     /**
 	 * @return the operator
