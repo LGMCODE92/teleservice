@@ -131,23 +131,44 @@ public class Search extends JFrame {
 
 		});
 		contentPane.add(searchButton);
-
-		String config = " Configuración";
-		JButton configButton = new JButton(config);
-		configButton.setBorder(null);
-		configButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		configButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		configButton.setForeground(new Color(0, 0, 0));
-		configButton.setBackground(new Color(245, 245, 245));
-		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
-		configButton.addActionListener(new ActionListener() {
+		
+		
+		
+		
+		String config=" ALTA OPERADOR";
+		JButton userRegisterButton = new JButton(config);
+		userRegisterButton.setBorder(null);
+		userRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		userRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		userRegisterButton.setForeground(new Color(0, 0, 0));
+		userRegisterButton.setBackground(new Color(245, 245, 245));
+		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		userRegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ir al alta y cerrar
 				JOptionPane.showMessageDialog(null, "ir a registrarse");
 			}
 		});
-		configButton.setBounds(285, 350, 215, 38);
-		contentPane.add(configButton);
+		userRegisterButton.setBounds(104, 411, 215, 38);
+		contentPane.add(userRegisterButton);
+		
+		
+		JButton operatorRegisterButton = new JButton(" ALTA USUARIO");
+		operatorRegisterButton.setForeground(Color.BLACK);
+		operatorRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		operatorRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		operatorRegisterButton.setBorder(null);
+		operatorRegisterButton.setBackground(new Color(245, 245, 245));
+		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		userRegisterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// ir al alta y cerrar
+				JOptionPane.showMessageDialog(null, "ir a registrarse");
+			}
+		});
+
+		operatorRegisterButton.setBounds(398, 411, 215, 38);
+		contentPane.add(operatorRegisterButton);
 	}
 	
 	private Person getPersonMock() {
