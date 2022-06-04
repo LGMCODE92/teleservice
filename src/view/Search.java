@@ -1,56 +1,118 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JToolTip;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Search extends JFrame {
 
+	//declaración de variables
 	private JPanel contentPane;
-<<<<<<< HEAD
 	private JTextField txtBuscar;	
-=======
-	private JTextField txtUser;
+	private JTextField txtSearch;
 	private JButton btnNewButton_1;
 
 
-	//comentario DOBLE
-	
->>>>>>> origin/Sofia
-	
 	/**
 	 * Create the frame.
 	 */
 	public Search() {
+		
 		setTitle("Search");
+		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		setIconImage(img);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		txtUser = new JTextField();
-		txtUser.setBounds(96, 83, 96, 20);
-		contentPane.add(txtUser);
-		txtUser.setColumns(10);
+
+		//centrar el frame en la pantalla
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		int height = pantalla.height;
+		int width = pantalla.width;
+		setBounds(width/4, height/4, 800, 700);
+		setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel = new JLabel("Introduzca el dni o teléfono del paciente o de algún dato de contacto:");
-		lblNewLabel.setBounds(52, 58, 362, 14);
-		contentPane.add(lblNewLabel);
+		//no maximizar
+		setResizable(false);
+
+		txtSearch = new JTextField();
+		txtSearch.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		//para limitar la longitud a 10 caracteres
+		txtSearch.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if(txtSearch.getText().length() >= 10)
+			    {
+			        e.consume();
+			    }
+			}
+		});
+		txtSearch.setBounds(256, 255, 223, 50);
+		contentPane.add(txtSearch);
+		//txtSearch.setColumns(10);
 		
-		JButton btnNewButton = new JButton("BUSCAR");
-		btnNewButton.setBounds(228, 82, 89, 23);
-		contentPane.add(btnNewButton);
+		JLabel searchLabel = new JLabel("Introduzca el dni o teléfono del paciente o de algún dato de contacto:");
+		searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		searchLabel.setBounds(76, 178, 634, 66);
+		contentPane.add(searchLabel);
 		
-		btnNewButton_1 = new JButton("Configuraci\u00F3n");
-		btnNewButton_1.setBounds(155, 193, 127, 23);
-		contentPane.add(btnNewButton_1);
+		JButton searchButton = new JButton("") {
+			@Override
+            public JToolTip createToolTip() {
+                JToolTip toolTip = super.createToolTip();
+                toolTip.setBackground(Color.LIGHT_GRAY);
+                toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
+                toolTip.setBorder(null);
+                return toolTip;
+            }
+		};
+		searchButton.setBorder(null);
+		searchButton.setBackground(new Color(240,240,240));
+		searchButton.setToolTipText("Buscar");
+		searchButton.setIcon(new ImageIcon(getClass().getResource("../images/search.png")));
+		searchButton.setToolTipText("Buscar");
+		searchButton.setBounds(489, 255, 53, 50);
+		contentPane.add(searchButton);
+		
+		
+		
+		
+		String config=" Configuración";
+		JButton configButton = new JButton(config);
+		configButton.setBorder(null);
+		configButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		configButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		configButton.setForeground(new Color(0, 0, 0));
+		configButton.setBackground(new Color(245, 245, 245));
+		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		configButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// ir al alta y cerrar
+				JOptionPane.showMessageDialog(null, "ir a registrarse");
+			}
+		});
+		configButton.setBounds(285, 350, 215, 38);
+		contentPane.add(configButton);
 	}
 }

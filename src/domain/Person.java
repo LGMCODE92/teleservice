@@ -108,7 +108,7 @@ public class Person {
         if (password == null || password.length() < 3){
             throw new Exception("La contraseña es obligatoria y tiene que tener como minimo 4 caracteres");
         }
-        if (operator == null || operator.length() < 2){
+        if (userName == null || userName.length() < 2){
             throw new Exception("El nombre de usuario es obligatorio y tiene que tener como minimo 2 caracteres");
         }
         
