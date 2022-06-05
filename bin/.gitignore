@@ -2,6 +2,7 @@
 /.project
 /App$1.class
 /App.class
+/bbdd/
 /config/
 /controller/
 /domain/
@@ -9,4 +10,3 @@
 /repository/
 /service/
 /view/
-/bbdd/
