@@ -11,10 +11,25 @@ public class CallLog {
     private String operator;
 	private String document;
     private String callReason;
-    private String contactPerson;
+    private String contactPerson; //Persona que llama
     private Date date;
-    private boolean deleted;
+	private boolean deleted;
     private String error;
+    
+    
+    public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public String getError() {
+		return error;
+	}
+	public void setError(String error) {
+		this.error = error;
+	}
+
     
     /**
 	 * @return the operator

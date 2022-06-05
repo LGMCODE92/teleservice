@@ -7,8 +7,13 @@ import java.security.spec.PSSParameterSpec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import domain.CallLog;
 import domain.Person;
@@ -35,9 +40,7 @@ public class CallLogRepository {
 					+ "DELETED)" 
 					+ "VALUES(?,?,?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
-				//??????????
 				ps.setObject(1, entity.getDate());
-				//??????????
 				ps.setString(2, entity.getOperator());
 				ps.setString(3, entity.getDocument());
 				ps.setString(4, entity.getCallReason());
@@ -58,7 +61,7 @@ public class CallLogRepository {
 		try {
 			stmt = conn.createStatement();
 			String sql = "CREATE TABLE  CALLS (" 
-					+ " ID PRIMARY KEY  NOT NULL AUTOINCREMENT, " 
+					+ " ID PRIMARY KEY NOT NULL AUTOINCREMENT, " 
 					+ " DATE DATE NOT NULL, "
 					+ "OPERATOR TEXT NOT NULL," 
 					+ "DOCUMENT TEXT NOT NULL," 
@@ -92,8 +95,7 @@ public class CallLogRepository {
 	public void delete(Person entity,  Connection conn) throws SQLException{
 		
 		// SQL Query
-		String sqlUpdate = "UPDATE CALLS SET DELETED=?"+ 
-		"WHERE USER_NAME = ?";
+		String sqlUpdate = "UPDATE CALLS SET DELETED=? WHERE USER_NAME = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
@@ -106,10 +108,9 @@ public class CallLogRepository {
 		}
 	}
 	
-	public Person findCalls(Person user, Connection conn) throws SQLException {
-		Person res = null;
-		int cont = 1;
-		//List<Map<String, String>> response = new ArrayList<>();
+	public List<Map<String,String>> findCalls(Person entity, Connection conn) throws SQLException {
+		
+		List<Map<String, String>> response = new ArrayList<>();
 		String sql = "SELECT * FROM CALLS WHERE DOCUMENT = ? ";
 //		if (null != user.getPassword()){
 //			sql = sql + "AND PASSWORD = ? ";
@@ -127,29 +128,28 @@ public class CallLogRepository {
 		System.out.println(sql);
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			// Fills query parameters 
-			ps.setString(1, user.getDocument());
+			ps.setString(1, entity.getDocument());
 //			if (null != user.getPassword()){
 //				int aux = cont + 1;
 //				ps.setString(aux, user.getPassword());
 //			}
 			try(ResultSet rs = ps.executeQuery()){
-//				ResultSetMetaData md = rs.getMetaData();
-//			    int columns = md.getColumnCount();
-//				Map<String, String> responseItem = new HashMap<>();
-//					for (int i = 1; i <= columns; ++i) {
-//						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
-//					}
-	
-//					response.add(responseItem);
-//				}
-				if(rs.next()) {//No iría un while?
-					res = new Person();
-					res.setUserName(rs.getString("USER_NAME"));
-					res.setPassword(rs.getString("PASSWORD"));
-					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
+				ResultSetMetaData md = rs.getMetaData();
+			    int columns = md.getColumnCount();
+				Map<String, String> responseItem = new HashMap<>();
+					for (int i = 1; i <= columns; ++i) {
+						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
+					}
+					response.add(responseItem);
 				}
-			}
-			return res;
+//				if(rs.next()) {//No iría un while?
+//					res = new Person();
+//					res.setUserName(rs.getString("USER_NAME"));
+//					res.setPassword(rs.getString("PASSWORD"));
+//					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
+//				}
+			
+			return response;
 		} catch (SQLException e) {
 			throw e;
 		} 
