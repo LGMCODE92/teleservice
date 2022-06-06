@@ -18,11 +18,20 @@ public class Person {
 	private String warning;
 	private String typeUser;
 	private String userRef;
-	private boolean deleted;
+	private String userSurname;
+    private boolean deleted;
 	private String error;
 	private List<Medicament> medicamentList;
 	private List<Person> contactsList;
 	private List<CallLog> callLogList;
+	
+	public String getUserSurname() {
+		return userSurname;
+	}
+
+	public void setUserSurname(String userSurname) {
+		this.userSurname = userSurname;
+	}
 
 	public List<Medicament> getMedicamentList() {
 		return medicamentList;
