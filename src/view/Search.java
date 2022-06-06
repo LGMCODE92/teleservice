@@ -193,13 +193,13 @@ public class Search extends JFrame {
 		Medicament medicament = new Medicament();
 		medicament.setName("Ibuprofeno");
 		medicament.setBaseMedicine("P. Activo 1");
-		medicament.setLaboratory("Cinfa");
+		medicament.setDiaryIngest("2");
 		medicament.setAmount(3);
 		
 		Medicament medicament2 = new Medicament();
 		medicament2.setName("Paracetamol");
 		medicament2.setBaseMedicine("P. Activo 1");
-		medicament2.setLaboratory("Pfizer");
+		medicament2.setDiaryIngest("3");
 		medicament2.setAmount(5);
 		
 		List<Medicament> medicamentlist = new ArrayList();
