@@ -78,6 +78,26 @@ public class MedicamentRepository {
 		System.out.println("Table created!!!");
 	}
 
+	public void update(Person entity, Connection conn) throws SQLException{
+
+
+
+		// SQL Query
+		String sqlUpdate = "UPDATE PERSONS SET"
+				+ "OPERATOR = ?";
+				
+
+		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
+			// Fills query params
+			psUpdate.setString(1, entity.getPassword());
+			psUpdate.setString(2, entity.getUserName());
+			// Execute update
+			psUpdate.execute();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 	public void dropTable(Connection conn) throws SQLException {
 
 		Statement stmt = null;
