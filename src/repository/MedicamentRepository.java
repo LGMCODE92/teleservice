@@ -32,14 +32,8 @@ public class MedicamentRepository {
 	public void insert(Medicament entity, Connection conn) throws SQLException {
 
 		try {
-			String sql = "INSERT INTO MEDICAMENTS (" 
-					+ "NAME," 
-					+ "DIARYINGEST," 
-					+ "BASEMEDICINE," 
-					+ "AMOUNT," 
-					+ "DOCUMENT,"
-					+ "DELETED)" 
-					+ "VALUES(?,?,?,?,?,?,?);";
+			String sql = "INSERT INTO MEDICAMENTS (" + "NAME," + "DIARYINGEST," + "BASEMEDICINE," + "AMOUNT,"
+					+ "DOCUMENT," + "DELETED)" + "VALUES(?,?,?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setString(1, entity.getName());
 				ps.setString(2, entity.getDiaryIngest());
@@ -61,14 +55,10 @@ public class MedicamentRepository {
 		Statement stmt = null;
 		try {
 			stmt = conn.createStatement();
-			String sql = "CREATE TABLE  MEDICAMENTS (" 
-					+ " ID PRIMARY KEY  NOT NULL AUTOINCREMENT, " 
-					+ " NAME TEXT NOT NULL, "
-					+ " DIARYINGEST TEXT NOT NULL," 
-					+ " BASEMEDICINE TEXT NOT NULL," 
-					+ " AMOUNT INT NOT NULL,"
-					+ " USERDOCUMENT TEXT NOT NULL," //FOREIGN KEY
-					+ " DELETED BOOLEAN NOT NULL);";
+			String sql = "CREATE TABLE  MEDICAMENTS (" + " ID PRIMARY KEY  NOT NULL AUTOINCREMENT, "
+					+ " NAME TEXT NOT NULL, " + " DIARYINGEST TEXT NOT NULL," + " BASEMEDICINE TEXT NOT NULL,"
+					+ " AMOUNT INT NOT NULL," + " USERDOCUMENT TEXT NOT NULL," // FOREIGN KEY
+					+ " DELETED BOOLEAN NOT NULL, FOREIGN KEY (USERDOCUMENT) REFERENCES PERSONS (DOCUMENT) );";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
@@ -78,14 +68,10 @@ public class MedicamentRepository {
 		System.out.println("Table created!!!");
 	}
 
-	public void update(Person entity, Connection conn) throws SQLException{
-
-
+	public void update(Person entity, Connection conn) throws SQLException {
 
 		// SQL Query
-		String sqlUpdate = "UPDATE PERSONS SET"
-				+ "OPERATOR = ?";
-				
+		String sqlUpdate = "UPDATE PERSONS SET" + "OPERATOR = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
@@ -97,7 +83,7 @@ public class MedicamentRepository {
 			throw e;
 		}
 	}
-	
+
 	public void dropTable(Connection conn) throws SQLException {
 
 		Statement stmt = null;
@@ -112,12 +98,11 @@ public class MedicamentRepository {
 		}
 		System.out.println("Tabled drop!!!");
 	}
-	
-	public void delete(Person entity,  Connection conn) throws SQLException{
-		
+
+	public void delete(Person entity, Connection conn) throws SQLException {
+
 		// SQL Query
-		String sqlUpdate = "UPDATE MEDICAMENTS SET DELETED=?"+ 
-		"WHERE USER_NAME = ?";
+		String sqlUpdate = "UPDATE MEDICAMENTS SET DELETED=?" + "WHERE USER_NAME = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
@@ -129,32 +114,30 @@ public class MedicamentRepository {
 			throw e;
 		}
 	}
-	
-	public List<Map<String,String>> findMedicaments(Person entity, Connection conn) throws SQLException {
-		
+
+	public List<Map<String, String>> findMedicaments(Person entity, Connection conn) throws SQLException {
+
 		List<Map<String, String>> response = new ArrayList<>();
 		String sql = "SELECT * FROM MEDICAMENTS WHERE DOCUMENT = ? ";
 
-		
 		System.out.println(sql);
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
-			// Fills query parameters 
+			// Fills query parameters
 			ps.setString(1, entity.getDocument());
-			
-			try(ResultSet rs = ps.executeQuery()){
+
+			try (ResultSet rs = ps.executeQuery()) {
 				ResultSetMetaData md = rs.getMetaData();
-			    int columns = md.getColumnCount();
+				int columns = md.getColumnCount();
 				Map<String, String> responseItem = new HashMap<>();
-					for (int i = 1; i <= columns; ++i) {
-						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
-					}
-					response.add(responseItem);
-				}			
+				for (int i = 1; i <= columns; ++i) {
+					responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
+				}
+				response.add(responseItem);
+			}
 			return response;
 		} catch (SQLException e) {
 			throw e;
-		} 
+		}
 	}
-	
-	
+
 }
