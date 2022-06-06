@@ -10,13 +10,14 @@ package domain;
 public class Medicament {
 	
 	private String name;
-	private String laboratory;
+	private String diaryIngest;
 	private String baseMedicine;
 	private int amount;
 	private String userDocument;
 	private boolean deleted;
 	private String error;
 	
+
 	/**
 	 * @return the deleted
 	 */
@@ -58,15 +59,7 @@ public class Medicament {
 	/**
 	 * @return the laboratory
 	 */
-	public String getLaboratory() {
-		return laboratory;
-	}
-	/**
-	 * @param laboratory the laboratory to set
-	 */
-	public void setLaboratory(String laboratory) {
-		this.laboratory = laboratory;
-	}
+	
 	/**
 	 * @return the baseMedicine
 	 */
@@ -90,6 +83,22 @@ public class Medicament {
 	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	
+	public String getDiaryIngest() {
+		return diaryIngest;
+	}
+	
+	public void setDiaryIngest(String diaryIngest) {
+		this.diaryIngest = diaryIngest;
+	}
+	
+	public String getError() {
+		return error;
+	}
+	
+	public void setError(String error) {
+		this.error = error;
 	}
 
 }

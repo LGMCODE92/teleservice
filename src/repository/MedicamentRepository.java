@@ -7,8 +7,13 @@ import java.security.spec.PSSParameterSpec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import domain.CallLog;
 import domain.Medicament;
@@ -29,7 +34,7 @@ public class MedicamentRepository {
 		try {
 			String sql = "INSERT INTO MEDICAMENTS (" 
 					+ "NAME," 
-					+ "LABORATORY," 
+					+ "DIARYINGEST," 
 					+ "BASEMEDICINE," 
 					+ "AMOUNT," 
 					+ "DOCUMENT,"
@@ -37,7 +42,7 @@ public class MedicamentRepository {
 					+ "VALUES(?,?,?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setString(1, entity.getName());
-				ps.setString(2, entity.getLaboratory());
+				ps.setString(2, entity.getDiaryIngest());
 				ps.setString(3, entity.getBaseMedicine());
 				ps.setInt(4, entity.getAmount());
 				ps.setString(5, entity.getUserDocument());
@@ -59,11 +64,11 @@ public class MedicamentRepository {
 			String sql = "CREATE TABLE  MEDICAMENTS (" 
 					+ " ID PRIMARY KEY  NOT NULL AUTOINCREMENT, " 
 					+ " NAME TEXT NOT NULL, "
-					+ "LABORATORY TEXT NOT NULL," 
-					+ "BASEMEDICINE TEXT NOT NULL," 
-					+ "AMOUNT INT NOT NULL,"
-					+ "USERDOCUMENT TEXT NOT NULL," //FOREIGN KEY
-					+ " DELETED BOOLEAN NOT NULL)";
+					+ " DIARYINGEST TEXT NOT NULL," 
+					+ " BASEMEDICINE TEXT NOT NULL," 
+					+ " AMOUNT INT NOT NULL,"
+					+ " USERDOCUMENT TEXT NOT NULL," //FOREIGN KEY
+					+ " DELETED BOOLEAN NOT NULL);";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
@@ -73,12 +78,32 @@ public class MedicamentRepository {
 		System.out.println("Table created!!!");
 	}
 
+	public void update(Person entity, Connection conn) throws SQLException{
+
+
+
+		// SQL Query
+		String sqlUpdate = "UPDATE PERSONS SET"
+				+ "OPERATOR = ?";
+				
+
+		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
+			// Fills query params
+			psUpdate.setString(1, entity.getPassword());
+			psUpdate.setString(2, entity.getUserName());
+			// Execute update
+			psUpdate.execute();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+	
 	public void dropTable(Connection conn) throws SQLException {
 
 		Statement stmt = null;
 		try {
 			stmt = conn.createStatement();
-			String sql = "DROP TABLE MEDICAMENTS";
+			String sql = "DROP TABLE MEDICAMENTS;";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
@@ -105,50 +130,27 @@ public class MedicamentRepository {
 		}
 	}
 	
-	public Person findMedicaments(Person user, Connection conn) throws SQLException {
-		Person res = null;
-		int cont = 1;
-		//List<Map<String, String>> response = new ArrayList<>();
+	public List<Map<String,String>> findMedicaments(Person entity, Connection conn) throws SQLException {
+		
+		List<Map<String, String>> response = new ArrayList<>();
 		String sql = "SELECT * FROM MEDICAMENTS WHERE DOCUMENT = ? ";
-//		if (null != user.getPassword()){
-//			sql = sql + "AND PASSWORD = ? ";
-//        }
-		/*
-		if (null != user.getTf()){
-			sql = sql + "WHERE TF = ?";
-         }else if (null != user.getUserName()){
-			sql = sql + "WHERE USER_NAME = ? AND";
-        }else if(null != user.getDni()){
-			sql = sql + "WHERE DNI = ?";
-		}
-		*/
+
 		
 		System.out.println(sql);
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			// Fills query parameters 
-			ps.setString(1, user.getDocument());
-//			if (null != user.getPassword()){
-//				int aux = cont + 1;
-//				ps.setString(aux, user.getPassword());
-//			}
+			ps.setString(1, entity.getDocument());
+			
 			try(ResultSet rs = ps.executeQuery()){
-//				ResultSetMetaData md = rs.getMetaData();
-//			    int columns = md.getColumnCount();
-//				Map<String, String> responseItem = new HashMap<>();
-//					for (int i = 1; i <= columns; ++i) {
-//						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
-//					}
-	
-//					response.add(responseItem);
-//				}
-				if(rs.next()) {//No iría un while?
-					res = new Person();
-					res.setUserName(rs.getString("USER_NAME"));
-					res.setPassword(rs.getString("PASSWORD"));
-					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
-				}
-			}
-			return res;
+				ResultSetMetaData md = rs.getMetaData();
+			    int columns = md.getColumnCount();
+				Map<String, String> responseItem = new HashMap<>();
+					for (int i = 1; i <= columns; ++i) {
+						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
+					}
+					response.add(responseItem);
+				}			
+			return response;
 		} catch (SQLException e) {
 			throw e;
 		} 

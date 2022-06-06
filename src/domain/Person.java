@@ -7,7 +7,8 @@ public class Person {
     private String operator;
     private String password;
     private String userName;
-    private String document;
+    private String userSurname;
+   	private String document;
     private String tf;
     private String address;
     private String healthStatus;
@@ -47,6 +48,14 @@ public class Person {
     private List<Person> contactsList;
     private List<CallLog> callLogList;
     
+    
+    public String getUserSurname() {
+		return userSurname;
+	}
+
+	public void setUserSurname(String userSurname) {
+		this.userSurname = userSurname;
+	}
     /**
 	 * @return the operator
 	 */

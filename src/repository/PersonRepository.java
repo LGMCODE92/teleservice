@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
+
 import java.sql.ResultSetMetaData;
 import domain.Person;
 
@@ -33,13 +36,12 @@ public class PersonRepository  {
 	 */
 	public void insert(Person entity, Connection conn) throws SQLException {				
 		
-		
-		try {
 			String sql = "INSERT INTO PERSONS ( " + 
 					"OPERATOR, " + //1
 					"PASSWORD, " +  
-					"USERNAME, "
-					+ "DOCUMENT," +  
+					"USERNAME, "+
+					"USERSURNAME, "+
+					"DOCUMENT," +  
 					"TF, " +  
 					"ADDRESS, " +  
 					"HEALTH_STATUS, " +  
@@ -56,34 +58,45 @@ public class PersonRepository  {
 					ps.setString(1, entity.getOperator());
 					ps.setString(2, entity.getPassword());
 					ps.setString(3, entity.getUserName());
-					ps.setString(4, entity.getDocument());
-					ps.setString(5, entity.getTf());
-					ps.setString(6, entity.getAddress());
-					ps.setString(7, entity.getHealthStatus());
-					ps.setString(8, entity.getHelpHome());
-					ps.setString(9, entity.getCivilStatus());
-					ps.setString(10, entity.getDateBirth());
-					ps.setString(11, entity.getSex());
-					ps.setString(12, entity.getWarning());
-					ps.setString(13, entity.getUserName());
-					ps.setObject(14, false);
+					ps.setString(4, entity.getUserSurname());
+					ps.setString(5, entity.getDocument());
+					ps.setString(6, entity.getTf());
+					ps.setString(7, entity.getAddress());
+					ps.setString(8, entity.getHealthStatus());
+					ps.setString(9, entity.getHelpHome());
+					ps.setString(10, entity.getCivilStatus());
+					ps.setString(11, entity.getDateBirth());
+					ps.setString(12, entity.getSex());
+					ps.setString(13, entity.getWarning());
+					ps.setString(14, entity.getUserName());
+					ps.setObject(15, false);
 					ps.execute();			
-				}
-
+				
 		}catch (SQLException e) {
 			throw e;
 		}		
 	}
 	public void createTable( Connection conn) throws SQLException {				
 		
-		
 		Statement stmt = null;
         try{
             stmt = conn.createStatement();
             String sql = "CREATE TABLE  PERSONS (" +
-                   " OPERATOR  TEXT NOT NULL, " + 
-                   " PASSWORD TEXT NOT NULL, " +
-                   " DELETED        BOOLEAN)"; 
+                   " OPERATOR  TEXT, " + 
+                   " PASSWORD TEXT, " +
+                   " USERNAME TEXT,"+
+                   " USERSURNAME TEXT,"+
+                   " DOCUMENT TEXT NOT NULL,"+
+                   " TF TEXT NOT NULL,"+
+                   " ADRESS TEXT,"+
+                   " HEALTHSTATUS TEXT,"+
+                   " HELPHOME TEXT,"+
+                   " CIVILSTATUS TEXT,"+
+                   " DATEBIRTH TEXT,"+
+                   " SEX TEXT,"+
+                   " WARNING TEXT,"+
+                   " TYPEUSER TEXT,"+
+                   " DELETED BOOLEAN);";
             stmt.executeUpdate(sql);
             stmt.close();
         }
@@ -126,8 +139,9 @@ public class PersonRepository  {
 
 
 		// SQL Query
-		String sqlUpdate = "UPDATE PERSONS SET PASSWORD=?"+ 
-		"WHERE USER_NAME = ?";
+		String sqlUpdate = "UPDATE PERSONS SET"
+				+ "OPERATOR = ?";
+				
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
@@ -139,9 +153,7 @@ public class PersonRepository  {
 			throw e;
 		}
 	}
-	
-	
-	
+		
 	/**
 	 * Logic delete
 	 * @param entity entity
@@ -149,24 +161,21 @@ public class PersonRepository  {
 	 * @throws SQLException SQLException
 	 */
 	public void delete(Person entity,  Connection conn) throws SQLException{
-
-
 	
 		// SQL Query
 		String sqlUpdate = "UPDATE PERSONS SET DELETED=?"+ 
-		"WHERE USER_NAME = ?";
+		"WHERE DOCUMENT = ?;";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
 			psUpdate.setBoolean(1, true);
-			psUpdate.setString(2, entity.getUserName());
+			psUpdate.setString(2, entity.getDocument());
 			// Execute update
 			psUpdate.execute();
 		} catch (SQLException e) {
 			throw e;
 		}
 	}
-	
 	
 	
 	/**
@@ -176,25 +185,12 @@ public class PersonRepository  {
 	 * @return Person
 	 * @throws SQLException SQLException
 	 */
-	public Person findPerson(Person user, Connection conn) throws SQLException {
+	
+	public Person findOperator (Person user, Connection conn) throws SQLException {
 		Person res = null;
 		int cont = 1;
-		//List<Map<String, String>> response = new ArrayList<>();
-		String sql = "SELECT * FROM PERSON WHERE USER_NAME = ? ";
-		if (null != user.getPassword()){
-			sql = sql + "AND PASSWORD = ? ";
-        }
-		/*
-		if (null != user.getTf()){
-			sql = sql + "WHERE TF = ?";
-         }else if (null != user.getUserName()){
-			sql = sql + "WHERE USER_NAME = ? AND";
-        }else if(null != user.getDni()){
-			sql = sql + "WHERE DNI = ?";
-		}
-		*/
-		
-		System.out.println(sql);
+		String sql = "SELECT * FROM PERSON WHERE OPERATOR = ? AND PASSWORD = ? ; ";
+
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			// Fills query parameters 
 			ps.setString(1, user.getUserName());
@@ -203,19 +199,70 @@ public class PersonRepository  {
 				ps.setString(aux, user.getPassword());
 			}
 			try(ResultSet rs = ps.executeQuery()){
-//				ResultSetMetaData md = rs.getMetaData();
-//			    int columns = md.getColumnCount();
-//				Map<String, String> responseItem = new HashMap<>();
-//					for (int i = 1; i <= columns; ++i) {
-//						responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
-//					}
-	
-//					response.add(responseItem);
-//				}
 				if(rs.next()) {
 					res = new Person();
-					res.setUserName(rs.getString("USER_NAME"));
+					res.setOperator(rs.getString("OPERATOR"));
 					res.setPassword(rs.getString("PASSWORD"));
+					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
+				}
+			}
+		return res;
+		}
+		
+	}
+	
+	public Person findPerson(Person entity, Connection conn) throws SQLException {
+		Person res = null;
+		int cont = 1;
+		boolean control;
+		String sql;
+		//List<Map<String, String>> response = new ArrayList<>();
+		if(null!= entity.getDocument()) {
+			sql = "SELECT * FROM PERSON WHERE DOCUMENT = ? ;";
+			control=true;
+		}else {
+			sql = "SELECT * FROM PERSON WHERE TF = ? ;";
+			control=false;
+		}
+		
+		System.out.println(sql);
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+			// Fills query parameters 
+			if (control)
+				ps.setString(1, entity.getDocument());
+			else {
+				ps.setString(1, entity.getTf());
+			}
+			
+			
+			if (null != entity.getPassword()){
+				int aux = cont + 1;
+				ps.setString(aux, entity.getPassword());
+			}
+			try(ResultSet rs = ps.executeQuery()){
+				
+				
+				
+				
+
+				if(rs.next()) {   //ESTO NO SE CONTROLA EN EL MAIN?
+					
+					
+					
+					
+					res = new Person();
+					res.setUserName(rs.getString("USER_NAME"));
+					res.setUserSurname(rs.getString("USERSURNAME"));
+					res.setDocument(rs.getString("DOCUMENT"));
+					res.setTf(rs.getString("TF"));
+					res.setAddress(rs.getString("ADDRESS"));
+					res.setHealthStatus(rs.getString("HEALTHSTATUS"));
+					res.setHelpHome(rs.getString("HELPHOME"));
+					res.setCivilStatus(rs.getString("CIVILSTATUS"));
+					res.setDateBirth(rs.getString("DATEBIRTH"));
+					res.setSex(rs.getString("SEX"));
+					res.setWarning(rs.getString("WARNING"));
+					res.setTypeUser(rs.getString("TYPEUSER"));
 					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
 				}
 			}
@@ -224,10 +271,4 @@ public class PersonRepository  {
 			throw e;
 		} 
 	}
-	
-	
-
-
-	
-
 }
