@@ -10,6 +10,17 @@
 
 <p>Televillaverde es una solución para mejorar el sistema educativo del IES Villaverde, con un gran deficit de herramientas y material de clase que ayuden a los docentes a transmitir los conocimientos necesarios. </p>
 
+## Environment
+- APP
+  - Eclipse Version
+  - SDKVersion
+  
+## Prerequisites
+
+## Activity or Screen summary 
+
 ## Colaborations
 ![image](https://user-images.githubusercontent.com/104386449/172377518-4858bd8f-b846-4d9c-ab31-8994f2f34788.png)
+<p><img src="https://user-images.githubusercontent.com/104386449/172345214-db67921e-3697-4128-9801-25deb6e53e76.png" width="" height="100"/></p>
+
 
