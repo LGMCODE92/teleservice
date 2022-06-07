@@ -98,7 +98,7 @@ public class PersonRepository {
 
 		String sqlUpdate = "UPDATE PERSONS SET"
 				+ "USERNAME = ?, USERSURNAME = ?,TF = ?,ADDRESS = ?, OPERATOR = ?,PASSWORD = ?,"
-				+ "HEALTH_STATUS = ?,HELP_HOME = ?, CIVIL_STATUS = ?, DATE_BIRTH= ?, SEX = ?, WARNING = ?, USER_TYPE = ?   WHERE DOCUMENT = ?";
+				+ "HEALTH_STATUS = ?,HELP_HOME = ?, CIVIL_STATUS = ?, DATE_BIRTH= ?, SEX = ?, WARNING = ?, USER_TYPE = ?   WHERE DOCUMENT = ?;";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params

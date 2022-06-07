@@ -43,7 +43,9 @@ public class Medicament {
 	public void setUserDocument(String userDocument) {
 		this.userDocument = userDocument;
 	}
+	
 	//falta la medida que podríamos hacer que seleccione de un array.
+	
 	/**
 	 * @return the name
 	 */
