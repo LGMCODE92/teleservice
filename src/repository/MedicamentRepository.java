@@ -2,8 +2,6 @@
  * 
  */
 package repository;
-
-import java.security.spec.PSSParameterSpec;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import domain.CallLog;
 import domain.Medicament;
 import domain.Person;
 
@@ -44,7 +40,6 @@ public class MedicamentRepository {
 				ps.execute();
 				// ps.close();
 			}
-
 		} catch (SQLException e) {
 			throw e;
 		}
@@ -68,15 +63,26 @@ public class MedicamentRepository {
 		System.out.println("Table created!!!");
 	}
 
-	public void update(Person entity, Connection conn) throws SQLException {
+	public void update(Medicament entity, Connection conn) throws SQLException {
 
 		// SQL Query
-		String sqlUpdate = "UPDATE PERSONS SET" + "OPERATOR = ?";
+		String sqlUpdate = "UPDATE MEDICAMENTS SET" + " NAME = ?,"
+				+ "DIARYINGEST=?, "
+				+ "BASEMEDICINE=?, "
+				+ "AMOUNT=?, "
+				+ "USERDOCUMENT=?, "
+				+ "DELETED=? "
+				+ "WHERE USERDOCUMENT = ?;";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
-			psUpdate.setString(1, entity.getPassword());
-			psUpdate.setString(2, entity.getUserName());
+			psUpdate.setString(1, entity.getName());
+			psUpdate.setString(2, entity.getDiaryIngest());
+			psUpdate.setString(3, entity.getBaseMedicine());
+			psUpdate.setInt(4,entity.getAmount());
+			psUpdate.setString(5, entity.getUserDocument());
+			psUpdate.setBoolean(6, entity.isDeleted());
+			psUpdate.setString(7, entity.getUserDocument());
 			// Execute update
 			psUpdate.execute();
 		} catch (SQLException e) {
