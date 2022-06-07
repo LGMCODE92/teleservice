@@ -1,18 +1,15 @@
-## Getting Started
+<div align="center" >
+  
+<img src="https://user-images.githubusercontent.com/104386449/172345214-db67921e-3697-4128-9801-25deb6e53e76.png" width="" height="75"/>
+  
+</div>
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# Televillaverde
 
-## Folder Structure
+<p>Aportamos soluciones para gestionar el control de usuarios de ContactCenter de ayuda a personas en situación de dependencia. Desarrollamos sistemas adaptables a las necesidades de cada empresa. </p>
 
-The workspace contains two folders by default, where:
+<p>Televillaverde es una solución para mejorar el sistema educativo del IES Villaverde, con un gran deficit de herramientas y material de clase que ayuden a los docentes a transmitir los conocimientos necesarios. </p>
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Colaborations
+![image](https://user-images.githubusercontent.com/104386449/172377518-4858bd8f-b846-4d9c-ab31-8994f2f34788.png)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
