@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Color;
+
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,7 +31,9 @@ import controller.TeleserviceController;
 import domain.Person;
 
 public class Login extends JFrame {
-
+	
+	
+	//declaración variables
 	public Person person;
 	private JPanel contentPane;
 	private JTextField txtUser;
@@ -40,6 +44,8 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		
+		//evento para tecla enter
 		KeyListener redirectEvent = new KeyListener() {
 
 			public void keyTyped(KeyEvent e) {
@@ -65,7 +71,7 @@ public class Login extends JFrame {
 			}
 
 			public void keyReleased(KeyEvent e) {
-				// Aqui tambien puedes insertar el codigo
+				// Aqui no funcionará
 			}
 		};
 		teleserviceController = new TeleserviceController();
@@ -77,6 +83,7 @@ public class Login extends JFrame {
 		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
 		setIconImage(img);
 
+		
 		// centrar el frame en la pantalla
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = pantalla.height;
@@ -90,7 +97,7 @@ public class Login extends JFrame {
 		// componentes
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(0, 0, 0));
-		contentPane.setBackground(new Color(245, 245, 245));
+		contentPane.setBackground(new Color(244,247,255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -105,7 +112,7 @@ public class Login extends JFrame {
 		txtUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtUser.setBorder(null);
 		txtUser.setBackground(Color.WHITE);
-		txtUser.setBounds(210, 363, 365, 38);
+		txtUser.setBounds(210, 363, 365, 40);
 		txtUser.addKeyListener(redirectEvent);
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
@@ -133,12 +140,14 @@ public class Login extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		JSeparator separator = new JSeparator();
-		separator.setBackground(Color.DARK_GRAY);
+		separator.setForeground(Color.WHITE);
+		separator.setBackground(new Color(0, 169, 176));
 		separator.setBounds(210, 404, 365, 2);
 		contentPane.add(separator);
 
 		JSeparator separator2 = new JSeparator();
-		separator2.setBackground(Color.DARK_GRAY);
+		separator2.setForeground(Color.WHITE);
+		separator2.setBackground(new Color(0, 169, 176));
 		separator2.setBounds(210, 513, 365, 2);
 		contentPane.add(separator2);
 
@@ -153,17 +162,17 @@ public class Login extends JFrame {
 				return toolTip;
 			}
 		};
+		enterButton.setToolTipText("Iniciar sesión");
 		enterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		enterButton.setBorder(null);
+		enterButton.setFocusable(false);
 		enterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		enterButton.setBackground(new Color(245, 245, 245));
-		enterButton.setToolTipText("Iniciar sesión");
+		enterButton.setBackground(new Color(244,247,255));
 		enterButton.setIcon(new ImageIcon(getClass().getResource("../images/enter.png")));
 		enterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Person res = teleserviceController.login(txtUser.getText(), new String(passwordField.getPassword()));
 				if (null == res.getError()) {
-
 					Search frame = new Search();
 					frame.setVisible(true);
 					dispose();
@@ -174,9 +183,7 @@ public class Login extends JFrame {
 			}
 
 		});
-
 		enterButton.addKeyListener(redirectEvent);
-
 		enterButton.setBounds(210, 554, 365, 38);
 		contentPane.add(enterButton);
 

@@ -1,29 +1,27 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Cursor;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 import javax.swing.JToolTip;
-import java.awt.SystemColor;
+import javax.swing.border.EmptyBorder;
 
-public class OperatorRegister extends JFrame {
+public class ContactInformation extends JFrame {
 
 	//declaración variables
 	private JPanel contentPane;
@@ -31,9 +29,7 @@ public class OperatorRegister extends JFrame {
 	private JTextField txtSurnameOperator;
 	private JTextField txtDniOperator;
 	private JTextField txtEmailOperator;
-	private JTextField txtUsername;
-	private JTextField txtPw;
-
+	private JTextField txtRelationshipContactInfo;
 
 	/**
 	 * Launch the application.
@@ -42,7 +38,7 @@ public class OperatorRegister extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OperatorRegister frame = new OperatorRegister();
+					ContactInformation frame = new ContactInformation();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +50,7 @@ public class OperatorRegister extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OperatorRegister() {
+	public ContactInformation() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -70,9 +66,7 @@ public class OperatorRegister extends JFrame {
 		setLocationRelativeTo(null);
 		
 		
-		
-		
-		setTitle("Operator register");
+		setTitle("Contact information");
 		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
 		setIconImage(img);
 		contentPane.setLayout(null);
@@ -80,40 +74,36 @@ public class OperatorRegister extends JFrame {
 		
 		JLabel nameOperator = new JLabel("Nombre");
 		nameOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		nameOperator.setBounds(289, 140, 86, 31);
+		nameOperator.setBounds(288, 172, 86, 31);
 		contentPane.add(nameOperator);
 		
 		JLabel surnameOperator = new JLabel("Apellidos");
 		surnameOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		surnameOperator.setBounds(282, 199, 93, 31);
+		surnameOperator.setBounds(282, 231, 93, 31);
 		contentPane.add(surnameOperator);
 		
 		JLabel dniOperator = new JLabel("DNI");
 		dniOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		dniOperator.setBounds(323, 260, 50, 31);
+		dniOperator.setBounds(318, 292, 50, 31);
 		contentPane.add(dniOperator);
 		
 		String tlfn="Teléfono";
 		JLabel tfOperator = new JLabel(tlfn);
 		tfOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		tfOperator.setBounds(282, 316, 86, 38);
+		tfOperator.setBounds(282, 346, 86, 38);
 		contentPane.add(tfOperator);
 		
-		JLabel userOperator = new JLabel("Nombre de usuario");
-		userOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		userOperator.setBounds(189, 379, 190, 39);
-		contentPane.add(userOperator);
+		JLabel relationshipContactInfo = new JLabel("Parentesco");
+		relationshipContactInfo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		relationshipContactInfo.setBounds(263, 404, 105, 39);
+		contentPane.add(relationshipContactInfo);
 		
 		String pw= "Contraseña";
-		JLabel pwOperator = new JLabel(pw);
-		pwOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		pwOperator.setBounds(257, 439, 111, 38);
-		contentPane.add(pwOperator);
 			
 		
 		
 		txtNameOperator = new JTextField();
-		txtNameOperator.setBounds(378, 141, 145, 31);
+		txtNameOperator.setBounds(378, 172, 145, 31);
 		txtNameOperator.setBorder(null);
 		contentPane.add(txtNameOperator);
 		txtNameOperator.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -125,7 +115,7 @@ public class OperatorRegister extends JFrame {
 		txtSurnameOperator.setBorder(null);
 		txtSurnameOperator.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtSurnameOperator.setBackground(Color.WHITE);
-		txtSurnameOperator.setBounds(378, 200, 145, 31);
+		txtSurnameOperator.setBounds(378, 231, 145, 31);
 		contentPane.add(txtSurnameOperator);
 		
 		txtDniOperator = new JTextField();
@@ -133,7 +123,7 @@ public class OperatorRegister extends JFrame {
 		txtDniOperator.setBorder(null);
 		txtDniOperator.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtDniOperator.setBackground(Color.WHITE);
-		txtDniOperator.setBounds(378, 261, 145, 31);
+		txtDniOperator.setBounds(378, 292, 145, 31);
 		contentPane.add(txtDniOperator);
 		
 		txtEmailOperator = new JTextField();
@@ -141,76 +131,62 @@ public class OperatorRegister extends JFrame {
 		txtEmailOperator.setBorder(null);
 		txtEmailOperator.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtEmailOperator.setBackground(Color.WHITE);
-		txtEmailOperator.setBounds(378, 321, 145, 31);
+		txtEmailOperator.setBounds(378, 346, 145, 31);
 		contentPane.add(txtEmailOperator);
 		
-		txtUsername = new JTextField();
-		txtUsername.setColumns(10);
-		txtUsername.setBorder(null);
-		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtUsername.setBackground(Color.WHITE);
-		txtUsername.setBounds(378, 384, 145, 31);
-		contentPane.add(txtUsername);
-		
-		txtPw = new JTextField();
-		txtPw.setColumns(10);
-		txtPw.setBorder(null);
-		txtPw.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtPw.setBackground(Color.WHITE);
-		txtPw.setBounds(378, 444, 145, 31);
-		contentPane.add(txtPw);
+		txtRelationshipContactInfo = new JTextField();
+		txtRelationshipContactInfo.setColumns(10);
+		txtRelationshipContactInfo.setBorder(null);
+		txtRelationshipContactInfo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtRelationshipContactInfo.setBackground(Color.WHITE);
+		txtRelationshipContactInfo.setBounds(378, 404, 145, 31);
+		contentPane.add(txtRelationshipContactInfo);
 		//txtPw.addKeyListener(redirectEvent);
 		
-		JLabel searchLabel = new JLabel("Introduzca los datos del operador");
+		JLabel searchLabel = new JLabel("Introduzca los datos de la persona de contacto");
 		searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		searchLabel.setBounds(231, 49, 324, 66);
+		searchLabel.setBounds(168, 79, 450, 66);
 		contentPane.add(searchLabel);
 		
-		JButton saveButton = new JButton(" Guardar operador");
+		JButton saveButton = new JButton(" Guardar contacto");
 		saveButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		saveButton.setFocusable(false);
 		saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		saveButton.setBorder(null);
+		saveButton.setFocusable(false);
 		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
-		saveButton.setBounds(268, 535, 250, 38);
+		saveButton.setBounds(225, 518, 335, 38);
 		contentPane.add(saveButton);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.WHITE);
 		separator.setBackground(new Color(0, 169, 176));
-		separator.setBounds(378, 172, 145, 2);
+		separator.setBounds(378, 203, 145, 2);
 		contentPane.add(separator);
 		
 		JSeparator separator2 = new JSeparator();
 		separator2.setForeground(Color.WHITE);
 		separator2.setBackground(new Color(0, 169, 176));
-		separator2.setBounds(378, 231, 145, 2);
+		separator2.setBounds(378, 262, 145, 2);
 		contentPane.add(separator2);
 		
 		JSeparator separator3 = new JSeparator();
 		separator3.setForeground(Color.WHITE);
 		separator3.setBackground(new Color(0, 169, 176));
-		separator3.setBounds(378, 292, 145, 2);
+		separator3.setBounds(378, 323, 145, 2);
 		contentPane.add(separator3);
 		
 		JSeparator separator4 = new JSeparator();
 		separator4.setForeground(Color.WHITE);
 		separator4.setBackground(new Color(0, 169, 176));
-		separator4.setBounds(378, 352, 145, 2);
+		separator4.setBounds(378, 377, 145, 2);
 		contentPane.add(separator4);
 		
 		JSeparator separator5 = new JSeparator();
 		separator5.setForeground(Color.WHITE);
 		separator5.setBackground(new Color(0, 169, 176));
-		separator5.setBounds(378, 415, 145, 2);
+		separator5.setBounds(378, 435, 145, 2);
 		contentPane.add(separator5);
-		
-		JSeparator separator6 = new JSeparator();
-		separator6.setForeground(Color.WHITE);
-		separator6.setBackground(new Color(0, 169, 176));
-		separator6.setBounds(378, 475, 145, 2);
-		contentPane.add(separator6);
 		
 		JButton returnButton = new JButton("") {
 			@Override
@@ -230,7 +206,7 @@ public class OperatorRegister extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Search frame = new Search();
+				UserRegister frame = new UserRegister();
 				frame.setVisible(true);
 				dispose();
 			}
@@ -238,4 +214,5 @@ public class OperatorRegister extends JFrame {
 		contentPane.add(returnButton);
 
 	}
+
 }
