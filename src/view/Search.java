@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +26,7 @@ import domain.Person;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,21 +51,25 @@ public class Search extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(244,247,255));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 
 		// centrar el frame en la pantalla
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		int height = pantalla.height;
 		int width = pantalla.width;
-		setBounds(width / 4, height / 4, 800, 700);
+		setBounds(width / 4, height / 4, 800, 420);
 		setLocationRelativeTo(null);
 
 		// no maximizar
 		setResizable(false);
 
 		txtSearch = new JTextField();
+		txtSearch.setBounds(258, 158, 223, 46);
 		txtSearch.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtSearch.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtSearch.setBorder(null);
+		txtSearch.setBackground(Color.WHITE);
 		// para limitar la longitud a 10 caracteres
 		txtSearch.addKeyListener(new KeyAdapter() {
 			@Override
@@ -73,13 +79,20 @@ public class Search extends JFrame {
 				}
 			}
 		});
-		txtSearch.setBounds(256, 255, 223, 50);
+		contentPane.setLayout(null);
 		contentPane.add(txtSearch);
-		// txtSearch.setColumns(10);
+		
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(258, 204, 225, 2);
+		separator.setForeground(Color.WHITE);
+		separator.setBackground(new Color(0, 169, 176));
+		contentPane.add(separator);
+		
 
-		JLabel searchLabel = new JLabel("Introduzca el dni o teléfono del paciente o de algún dato de contacto:");
-		searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		searchLabel.setBounds(76, 178, 634, 66);
+		JLabel searchLabel = new JLabel("Introduzca el DNI/teléfono del usuario/persona de contacto");
+		searchLabel.setBounds(112, 73, 562, 66);
+		searchLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		contentPane.add(searchLabel);
 
 		JButton searchButton = new JButton("") {
@@ -92,12 +105,13 @@ public class Search extends JFrame {
 				return toolTip;
 			}
 		};
+		searchButton.setBounds(491, 156, 53, 50);
 		searchButton.setBorder(null);
-		searchButton.setBackground(new Color(240, 240, 240));
+		searchButton.setFocusable(false);
+		searchButton.setBackground(new Color(244,247,255));
 		searchButton.setToolTipText("Buscar");
 		searchButton.setIcon(new ImageIcon(getClass().getResource("../images/search.png")));
 		searchButton.setToolTipText("Buscar");
-		searchButton.setBounds(489, 255, 53, 50);
 
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,6 +129,7 @@ public class Search extends JFrame {
 					Person detalle = null; // llamamos al controlador que nos busca el detalle
 					detalle = getPersonMock();
 
+					
 					if (null == detalle.getError()) {
 						User frame = new User(detalle);
 						frame.setVisible(true);
@@ -135,40 +150,88 @@ public class Search extends JFrame {
 		
 		
 		
-		String config=" ALTA OPERADOR";
-		JButton userRegisterButton = new JButton(config);
+		String config=" Registrar operador";
+		JButton operatorRegisterButton = new JButton(config);
+		operatorRegisterButton.setBounds(128, 242, 250, 38);
+		operatorRegisterButton.setBorder(null);
+		operatorRegisterButton.setFocusable(false);
+		operatorRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		operatorRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		operatorRegisterButton.setBackground(new Color(244,247,255));
+		operatorRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/operatorLogin.png")));
+		operatorRegisterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// ir al alta y cerrar
+				//JOptionPane.showMessageDialog(null, "ir a registrarse");
+				Person detalle = null; // llamamos al controlador que nos busca el detalle
+				detalle = getPersonMock();
+
+				if (null == detalle.getError()) {
+					OperatorRegister frame = new OperatorRegister();
+					frame.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, detalle.getError());
+				}
+			}
+		});
+		contentPane.add(operatorRegisterButton);
+		
+		
+		JButton userRegisterButton = new JButton(" Registrar usuario");
+		userRegisterButton.setBounds(388, 242, 261, 38);
+		userRegisterButton.setForeground(Color.BLACK);
 		userRegisterButton.setBorder(null);
+		userRegisterButton.setFocusable(false);
 		userRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		userRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		userRegisterButton.setForeground(new Color(0, 0, 0));
-		userRegisterButton.setBackground(new Color(245, 245, 245));
-		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		userRegisterButton.setBackground(new Color(244,247,255));
+		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/userLogin.png")));
 		userRegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ir al alta y cerrar
-				JOptionPane.showMessageDialog(null, "ir a registrarse");
+				//JOptionPane.showMessageDialog(null, "ir a regist");
+				Person detalle = null; // llamamos al controlador que nos busca el detalle
+				detalle = getPersonMock();
+
+				if (null == detalle.getError()) {
+					UserRegister frame = new UserRegister();
+					frame.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, detalle.getError());
+				}
 			}
 		});
-		userRegisterButton.setBounds(104, 411, 215, 38);
 		contentPane.add(userRegisterButton);
 		
 		
-		JButton operatorRegisterButton = new JButton(" ALTA USUARIO");
-		operatorRegisterButton.setForeground(Color.BLACK);
-		operatorRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		operatorRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
-		operatorRegisterButton.setBorder(null);
-		operatorRegisterButton.setBackground(new Color(245, 245, 245));
-		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
-		userRegisterButton.addActionListener(new ActionListener() {
+		
+		JButton returnButton = new JButton("") {
+			@Override
+			public JToolTip createToolTip() {
+				JToolTip toolTip = super.createToolTip();
+				toolTip.setBackground(Color.LIGHT_GRAY);
+				toolTip.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				toolTip.setBorder(null);
+				return toolTip;
+			}
+		};
+		returnButton.setBounds(10, 11, 43, 38);
+		returnButton.setBorder(null);
+		returnButton.setBackground(new Color(244,247,255));
+		returnButton.setFocusable(false);
+		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ir al alta y cerrar
-				JOptionPane.showMessageDialog(null, "ir a registrarse");
+				Login frame = new Login();
+				frame.setVisible(true);
+				dispose();
 			}
 		});
+		returnButton.setToolTipText("Volver");
+		contentPane.add(returnButton);
 
-		operatorRegisterButton.setBounds(398, 411, 215, 38);
-		contentPane.add(operatorRegisterButton);
 	}
 	
 	private Person getPersonMock() {
@@ -188,18 +251,19 @@ public class Search extends JFrame {
 		contact.setUserName("Geremias");
 		contact.setTf("654654654");
 		contact.setDocument("12345678G");
+		
 		List<Person> contactlist = new ArrayList();
 		contactlist.add(contact);
 		Medicament medicament = new Medicament();
 		medicament.setName("Ibuprofeno");
 		medicament.setBaseMedicine("P. Activo 1");
-		medicament.setDiaryIngest("2");
+		medicament.setLaboratory("Cinfa");
 		medicament.setAmount(3);
 		
 		Medicament medicament2 = new Medicament();
 		medicament2.setName("Paracetamol");
 		medicament2.setBaseMedicine("P. Activo 1");
-		medicament2.setDiaryIngest("3");
+		medicament2.setLaboratory("Pfizer");
 		medicament2.setAmount(5);
 		
 		List<Medicament> medicamentlist = new ArrayList();
