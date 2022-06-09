@@ -13,6 +13,7 @@ public class CallLog {
     private String callReason; 
     private String contactPerson; //Persona que llama
     private Date date;
+    //private String UserDocument;
 	private boolean deleted;
     private String error;
     

@@ -32,7 +32,6 @@ public class TeleserviceService {
             try {
 				personResponse = personRepository.findOperator(user, conn);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             isLogin = (null != personResponse 
