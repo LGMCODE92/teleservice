@@ -336,7 +336,7 @@ public class User extends JFrame {
 		for (int i = 0; i < detalle.getMedicamentList().size(); i++) {
 			datosMedical[i][0] = detalle.getMedicamentList().get(i).getName();
 			datosMedical[i][1] = detalle.getMedicamentList().get(i).getBaseMedicine();
-			datosMedical[i][2] = detalle.getMedicamentList().get(i).getLaboratory();
+			//datosMedical[i][2] = detalle.getMedicamentList().get(i).getLaboratory();
 			//datosMedical[i][3] = detalle.getMedicamentList().get(i).getAmount();
 		};
 	}

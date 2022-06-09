@@ -13,18 +13,33 @@ public class TeleserviceService {
         Connection conn = Connect.connect();
         Person personResponse = null;
         boolean isLogin = false;
+        user.setOperator("paquito");
+        user.setPassword("123");
+        user.setDocument("12345678g");
+        user.setTf("123456789");
+        
         
         try{
-            //personRepository.dropTable(conn);
-            //personRepository.createTable(conn);
-            //personRepository.insert(person,conn);
-
-            personResponse = personRepository.findPerson(user, conn);
+        	try {
+            personRepository.dropTable(conn);
+            personRepository.createTable(conn);
+            personRepository.insert(user,conn);
+        	}catch (SQLException e){
+        		System.out.println("error: ");
+        		e.printStackTrace();
+        	}finally {
+        		
+            try {
+				personResponse = personRepository.findOperator(user, conn);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             isLogin = (null != personResponse 
-            && personResponse.getUserName().equals(user.getUserName())
+            && personResponse.getOperator().equals(user.getOperator())
             && personResponse.getPassword().equals(user.getPassword()));
             conn.close();
-            
+        	}
         }catch(SQLException e){
            System.out.println(e.getMessage());
         } finally {

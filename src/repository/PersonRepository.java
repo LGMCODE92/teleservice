@@ -27,9 +27,9 @@ public class PersonRepository {
 	public void insert(Person entity, Connection conn) throws SQLException {
 
 		String sql = "INSERT INTO PERSONS ( " + "OPERATOR, " + // 1
-				"PASSWORD, " + "USERNAME, " + "USERSURNAME, " + "DOCUMENT," + "TF, " + "ADDRESS, " + "HEALTH_STATUS, "
-				+ "HELP_HOME, " + "CIVIL_STATUS, " + "DATE_BIRTH, " + "SEX, " + "WARNING, " + "USER_TYPE, USER_REF,"
-				+ "DELETED) " + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
+				"PASSWORD, " + "USER_NAME, " + "USER_SURNAME, " + "DOCUMENT, " + "TF, " + "ADRESS, " + "HEALTH_STATUS, "
+				+ "HELP_HOME, " + "CIVIL_STATUS, " + "DATE_BIRTH, " + "SEX, " + "WARNING, " + "USER_TYPE,"+" USER_REF, "
+				+ "DELETED) " + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setString(1, entity.getOperator());
@@ -45,7 +45,8 @@ public class PersonRepository {
 			ps.setString(11, entity.getDateBirth());
 			ps.setString(12, entity.getSex());
 			ps.setString(13, entity.getWarning());
-			ps.setString(14, entity.getUserName());
+			ps.setString(14, entity.getTypeUser());
+			ps.setString(15, entity.getUserRef());
 			ps.setObject(15, false);
 			ps.execute();
 
@@ -59,10 +60,10 @@ public class PersonRepository {
 		Statement stmt = null;
 		try {
 			stmt = conn.createStatement();
-			String sql = "CREATE TABLE  PERSONS (" + " OPERATOR  TEXT, " + " PASSWORD TEXT, " + " USERNAME TEXT,"
-					+ " USERSURNAME TEXT," + " DOCUMENT TEXT PRIMARY KEY  NOT NULL," + " TF TEXT NOT NULL UNIQUE," + " ADRESS TEXT,"
-					+ " HEALTHSTATUS TEXT," + " HELPHOME TEXT," + " CIVILSTATUS TEXT," + " DATEBIRTH TEXT,"
-					+ " SEX TEXT," + " WARNING TEXT," + " TYPEUSER TEXT, USER_REF TEXT," + " DELETED BOOLEAN);";
+			String sql = "CREATE TABLE IF NOT EXISTS PERSONS  ( OPERATOR  TEXT, " + " PASSWORD TEXT, " + " USER_NAME TEXT,"
+					+ " USER_SURNAME TEXT," + " DOCUMENT TEXT PRIMARY KEY  NOT NULL," + " TF TEXT NOT NULL UNIQUE," + " ADRESS TEXT,"
+					+ " HEALTH_STATUS TEXT," + " HELP_HOME TEXT," + " CIVIL_STATUS TEXT," + " DATE_BIRTH TEXT,"
+					+ " SEX TEXT," + " WARNING TEXT," + " USER_TYPE TEXT,"+" USER_REF TEXT," + " DELETED BOOLEAN);";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
@@ -97,7 +98,7 @@ public class PersonRepository {
 	public void update(Person entity, Connection conn) throws SQLException {
 
 		String sqlUpdate = "UPDATE PERSONS SET"
-				+ "USERNAME = ?, USERSURNAME = ?,TF = ?,ADDRESS = ?, OPERATOR = ?,PASSWORD = ?,"
+				+ "USER_NAME = ?, USER_SURNAME = ?,TF = ?,ADRESS = ?, OPERATOR = ?,PASSWORD = ?,"
 				+ "HEALTH_STATUS = ?,HELP_HOME = ?, CIVIL_STATUS = ?, DATE_BIRTH= ?, SEX = ?, WARNING = ?, USER_TYPE = ?   WHERE DOCUMENT = ?;";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
@@ -158,11 +159,11 @@ public class PersonRepository {
 	public Person findOperator(Person user, Connection conn) throws SQLException {
 		Person res = null;
 		int cont = 1;
-		String sql = "SELECT * FROM PERSON WHERE OPERATOR = ? AND PASSWORD = ? ; ";
+		String sql = "SELECT * FROM PERSONS WHERE OPERATOR = ? AND PASSWORD = ? ; ";
 
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			// Fills query parameters
-			ps.setString(1, user.getUserName());
+			ps.setString(1, user.getOperator());
 			if (null != user.getPassword()) {
 				int aux = cont + 1;
 				ps.setString(aux, user.getPassword());
@@ -177,7 +178,6 @@ public class PersonRepository {
 			}
 			return res;
 		}
-
 	}
 
 	public Person findPerson(Person entity, Connection conn) throws SQLException {
@@ -213,17 +213,17 @@ public class PersonRepository {
 
 					res = new Person();
 					res.setUserName(rs.getString("USER_NAME"));
-					res.setUserSurname(rs.getString("USERSURNAME"));
+					res.setUserSurname(rs.getString("USER_SURNAME"));
 					res.setDocument(rs.getString("DOCUMENT"));
 					res.setTf(rs.getString("TF"));
-					res.setAddress(rs.getString("ADDRESS"));
-					res.setHealthStatus(rs.getString("HEALTHSTATUS"));
-					res.setHelpHome(rs.getString("HELPHOME"));
-					res.setCivilStatus(rs.getString("CIVILSTATUS"));
-					res.setDateBirth(rs.getString("DATEBIRTH"));
+					res.setAddress(rs.getString("ADRESS"));
+					res.setHealthStatus(rs.getString("HEALTH_STATUS"));
+					res.setHelpHome(rs.getString("HELP_HOME"));
+					res.setCivilStatus(rs.getString("CIVIL_STATUS"));
+					res.setDateBirth(rs.getString("DATE_BIRTH"));
 					res.setSex(rs.getString("SEX"));
 					res.setWarning(rs.getString("WARNING"));
-					res.setTypeUser(rs.getString("TYPEUSER"));
+					res.setTypeUser(rs.getString("TYPE_USER"));
 					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
 				}
 			}

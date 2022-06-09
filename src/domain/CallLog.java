@@ -10,7 +10,7 @@ public class CallLog {
 	
     private String operator;
 	private String document;
-    private String callReason;
+    private String callReason; 
     private String contactPerson; //Persona que llama
     private Date date;
 	private boolean deleted;

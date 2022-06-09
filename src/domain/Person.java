@@ -4,22 +4,22 @@ import java.util.List;
 
 public class Person {
 
-	private String operator;
-	private String password;
-	private String userName;
-	private String document;
-	private String tf;
-	private String address;
-	private String healthStatus;
-	private String helpHome;
-	private String civilStatus;
-	private String dateBirth;
-	private String sex;
-	private String warning;
-	private String typeUser;
-	private String userRef;
-	private String userSurname;
-    private boolean deleted;
+	private String operator="";
+	private String password="";
+	private String userName="";
+	private String document="";
+	private String tf="";
+	private String address="";
+	private String healthStatus="";
+	private String helpHome="";
+	private String civilStatus="";
+	private String dateBirth="";
+	private String sex="";
+	private String warning="";
+	private String typeUser="";
+	private String userRef="";
+	private String userSurname="";
+    private boolean deleted=false;
 	private String error;
 	private List<Medicament> medicamentList;
 	private List<Person> contactsList;
@@ -153,7 +153,7 @@ public class Person {
 		if (password == null || password.length() < 3) {
 			throw new Exception("La contraseña es obligatoria y tiene que tener como minimo 4 caracteres");
 		}
-		if (userName == null || userName.length() < 2) {
+		if (operator == null || operator.length() < 2) {
 			throw new Exception("El nombre de usuario es obligatorio y tiene que tener como minimo 2 caracteres");
 		}
 
