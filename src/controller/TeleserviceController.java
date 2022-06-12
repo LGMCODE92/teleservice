@@ -2,6 +2,7 @@ package controller;
 import service.TeleserviceService;
 import domain.Person;
 public class TeleserviceController {
+	
     private TeleserviceService teleserviceService;
 
     public TeleserviceController(){
@@ -18,6 +19,7 @@ public class TeleserviceController {
             user.loginValid();
             response = teleserviceService.login(user);
         }catch (Exception e){
+        	System.out.println("ErrorTeleserviceControler");
         	response = new Person();
             response.setError(e.getMessage());
         }

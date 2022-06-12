@@ -97,7 +97,7 @@ public class PersonRepository {
 	 */
 	public void update(Person entity, Connection conn) throws SQLException {
 
-		String sqlUpdate = "UPDATE PERSONS SET"
+		String sqlUpdate = "UPDATE PERSONS SET "
 				+ "USER_NAME = ?, USER_SURNAME = ?,TF = ?,ADRESS = ?, OPERATOR = ?,PASSWORD = ?,"
 				+ "HEALTH_STATUS = ?,HELP_HOME = ?, CIVIL_STATUS = ?, DATE_BIRTH= ?, SEX = ?, WARNING = ?, USER_TYPE = ?   WHERE DOCUMENT = ?;";
 
@@ -173,6 +173,8 @@ public class PersonRepository {
 					res = new Person();
 					res.setOperator(rs.getString("OPERATOR"));
 					res.setPassword(rs.getString("PASSWORD"));
+					res.setDocument(rs.getString("DOCUMENT"));
+					res.setTf(rs.getString("TF"));
 					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
 				}
 			}

@@ -31,7 +31,7 @@ public class CallLogRepository {
 
 		try {
 			String sql = "INSERT INTO CALLS (" + "DATE," + "OPERATOR," + "DOCUMENT," + "CALLREASON," + "CONTACTPERSON,"
-					+ "DELETED)" + "VALUES(?,?,?,?,?,?,?);";
+					+ "DELETED)" + "VALUES(?,?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setObject(1, entity.getDate());
 				ps.setString(2, entity.getOperator());
@@ -53,7 +53,7 @@ public class CallLogRepository {
 		Statement stmt = null;
 		try {
 			stmt = conn.createStatement();
-			String sql = "CREATE TABLE  CALLS (" + " ID PRIMARY KEY NOT NULL AUTOINCREMENT, " + " DATE DATE NOT NULL, "
+			String sql = "CREATE TABLE IF NOT EXISTS CALLS (" + " ID INTEGER PRIMARY KEY AUTOINCREMENT, " + " DATE DATE NOT NULL, "
 					+ "OPERATOR TEXT NOT NULL," + "DOCUMENT TEXT NOT NULL," + "CONTACTPERSON TEXT NOT NULL,"
 					+ "CALLREASON TEXT NOT NULL,"
 					+ " DELETED BOOLEAN NOT NULL , FOREIGN KEY (DOCUMENT) REFERENCES PERSONS (DOCUMENT) )";
@@ -84,12 +84,12 @@ public class CallLogRepository {
 	public void delete(Person entity, Connection conn) throws SQLException {
 
 		// SQL Query
-		String sqlUpdate = "UPDATE CALLS SET DELETED=? WHERE USER_NAME = ?";
+		String sqlUpdate = "UPDATE CALLS SET DELETED=? WHERE DOCUMENT = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
 			psUpdate.setBoolean(1, true);
-			psUpdate.setString(2, entity.getUserName());
+			psUpdate.setString(2, entity.getDocument());
 			// Execute update
 			psUpdate.execute();
 		} catch (SQLException e) {
