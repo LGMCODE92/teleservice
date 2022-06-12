@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"service","c":"TeleserviceService","l":"login(Person)","u":"login(domain.Person)"},{"p":"service","c":"TeleserviceService","l":"TeleserviceService()","u":"%3Cinit%3E()"}];updateSearchResults();

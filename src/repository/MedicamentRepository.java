@@ -29,7 +29,7 @@ public class MedicamentRepository {
 
 		try {
 			String sql = "INSERT INTO MEDICAMENTS (" + "NAME," + "DIARYINGEST," + "BASEMEDICINE," + "AMOUNT,"
-					+ "DOCUMENT," + "DELETED)" + "VALUES(?,?,?,?,?,?,?);";
+					+ "USERDOCUMENT," + "DELETED)" + "VALUES(?,?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
 				ps.setString(1, entity.getName());
 				ps.setString(2, entity.getDiaryIngest());
@@ -50,14 +50,14 @@ public class MedicamentRepository {
 		Statement stmt = null;
 		try {
 			stmt = conn.createStatement();
-			String sql = "CREATE TABLE  MEDICAMENTS (" + " ID PRIMARY KEY  NOT NULL AUTOINCREMENT, "
+			String sql = "CREATE TABLE IF NOT EXISTS MEDICAMENTS (" + " ID INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " NAME TEXT NOT NULL, " + " DIARYINGEST TEXT NOT NULL," + " BASEMEDICINE TEXT NOT NULL,"
 					+ " AMOUNT INT NOT NULL," + " USERDOCUMENT TEXT NOT NULL," // FOREIGN KEY
 					+ " DELETED BOOLEAN NOT NULL, FOREIGN KEY (USERDOCUMENT) REFERENCES PERSONS (DOCUMENT) );";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.err.println("MR60"+e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
 		System.out.println("Table created!!!");
@@ -108,7 +108,7 @@ public class MedicamentRepository {
 	public void delete(Person entity, Connection conn) throws SQLException {
 
 		// SQL Query
-		String sqlUpdate = "UPDATE MEDICAMENTS SET DELETED=?" + "WHERE USER_NAME = ?";
+		String sqlUpdate = "UPDATE MEDICAMENTS SET DELETED=?" + "WHERE USERDOCUMENT = ?";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params

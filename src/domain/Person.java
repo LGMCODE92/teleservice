@@ -4,6 +4,16 @@ import java.util.List;
 
 public class Person {
 
+	@Override
+	public String toString() {
+		return "Person [operator=" + operator + ", password=" + password + ", userName=" + userName + ", document="
+				+ document + ", tf=" + tf + ", address=" + address + ", healthStatus=" + healthStatus + ", helpHome="
+				+ helpHome + ", civilStatus=" + civilStatus + ", dateBirth=" + dateBirth + ", sex=" + sex + ", warning="
+				+ warning + ", typeUser=" + typeUser + ", userRef=" + userRef + ", userSurname=" + userSurname
+				+ ", deleted=" + deleted + ", error=" + error + ", medicamentList=" + medicamentList + ", contactsList="
+				+ contactsList + ", callLogList=" + callLogList + "]";
+	}
+
 	private String operator="";
 	private String password="";
 	private String userName="";
