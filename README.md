@@ -12,14 +12,18 @@
 
 ## Environment
 - APP
-  - Eclipse Version
+  - Eclipse Version  2021-09 (4.21.0)
   - SDKVersion
   
 ## Prerequisites
 
 ## Installation
 
-## Activity or Screen summary 
+## Activity or Screen summary (Packages)
+###Domain
+Include the 
+
+###Repositories
 
 ## Colaborations
 ![image](https://user-images.githubusercontent.com/104386449/172377518-4858bd8f-b846-4d9c-ab31-8994f2f34788.png)
