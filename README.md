@@ -20,10 +20,10 @@
 ## Installation
 
 ## Activity or Screen summary (Packages)
-###Domain
+### Domain
 Include the 
 
-###Repositories
+### Repositories
 
 ## Colaborations
 ![image](https://user-images.githubusercontent.com/104386449/172377518-4858bd8f-b846-4d9c-ab31-8994f2f34788.png)
