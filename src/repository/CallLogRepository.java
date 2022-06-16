@@ -31,14 +31,14 @@ public class CallLogRepository {
 
 		try {
 			String sql = "INSERT INTO CALLS (" + "DATE," + "OPERATOR," + "DOCUMENT," + "CALLREASON," + "CONTACTPERSON,"
-					+ "DELETED)" + "VALUES(?,?,?,?,?,?);";
+					+ "DELETED)" + "VALUES(datetime('now','localtime'),?,?,?,?,?);";
 			try (PreparedStatement ps = conn.prepareStatement(sql)) {
-				ps.setObject(1, entity.getDate());
-				ps.setString(2, entity.getOperator());
-				ps.setString(3, entity.getDocument());
-				ps.setString(4, entity.getCallReason());
-				ps.setString(5, entity.getContactPerson());
-				ps.setBoolean(6, false);
+//				ps.setObject(1, entity.getDate());
+				ps.setString(1, entity.getOperator());
+				ps.setString(2, entity.getDocument());
+				ps.setString(3, entity.getCallReason());
+				ps.setString(4, entity.getContactPerson());
+				ps.setBoolean(5, false);
 				ps.execute();
 				// ps.close();
 			}
@@ -99,6 +99,7 @@ public class CallLogRepository {
 
 	public List<Map<String, String>> findCalls(Person entity, Connection conn) throws SQLException {
 
+		List<List> fincalllog = new ArrayList<>();
 		List<Map<String, String>> response = new ArrayList<>();
 		String sql = "SELECT * FROM CALLS WHERE DOCUMENT = ? ";
 //		if (null != user.getPassword()){
@@ -110,7 +111,6 @@ public class CallLogRepository {
 		 * user.getDni()){ sql = sql + "WHERE DNI = ?"; }
 		 */
 
-		System.out.println(sql);
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 			// Fills query parameters
 			ps.setString(1, entity.getDocument());
@@ -118,7 +118,10 @@ public class CallLogRepository {
 //				int aux = cont + 1;
 //				ps.setString(aux, user.getPassword());
 //			}
-			try (ResultSet rs = ps.executeQuery()) {
+			try {
+				
+			ResultSet rs = ps.executeQuery();
+					while (rs.next()){
 				ResultSetMetaData md = rs.getMetaData();
 				int columns = md.getColumnCount();
 				Map<String, String> responseItem = new HashMap<>();
@@ -126,6 +129,7 @@ public class CallLogRepository {
 					responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
 				}
 				response.add(responseItem);
+				
 			}
 //				if(rs.next()) {//No iría un while?
 //					res = new Person();
@@ -138,6 +142,7 @@ public class CallLogRepository {
 		} catch (SQLException e) {
 			throw e;
 		}
+	}
 	}
 
 }

@@ -3,7 +3,7 @@
  */
 package domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class CallLog {
 	
@@ -15,7 +15,7 @@ public class CallLog {
     private Date date;
     //private String UserDocument;
 	private boolean deleted;
-    private String error;
+	private String error;
     
     
     public boolean isDeleted() {
@@ -94,5 +94,12 @@ public class CallLog {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	 @Override
+		public String toString() {
+			return "CallLog [operator=" + operator + ", document=" + document + ", callReason=" + callReason
+					+ ", contactPerson=" + contactPerson + ", date=" + date + ", deleted=" + deleted + ", error=" + error
+					+ "]";
+		}
 	
 }
