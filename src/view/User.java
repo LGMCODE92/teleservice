@@ -61,6 +61,9 @@ public class User extends JFrame {
 	private JButton btnAddContact;
 	private JButton btnAddMedication;
 	private JButton btnNewCall;
+	private JButton btnDeleteContact;
+	private JButton btnDeleteUser;
+	private JButton btnDeleteMedication;
 
 	private String[] columnasMedical = { "Nombre", "Cantidad (mg)", "Tomas diarias" };
 	private String[] columnasContact = { "Nombre", "DNI", "Teléfono", "Parentesco" };
@@ -117,7 +120,7 @@ public class User extends JFrame {
 		// crea tabla historial de llamadas, la coloca y la añade al panel junto al scroll
 		historialTable = new JTable(datosHistorialCall, columnasHistorialCall);
 		JScrollPane scrollPaneHist = new JScrollPane(historialTable);
-		scrollPaneHist.setBounds(353, 390, 414, 170);
+		scrollPaneHist.setBounds(353, 390, 403, 170);
 		historialTable.setSelectionBackground(new Color(216,247,248));
 		getContentPane().add(scrollPaneHist);
 		
@@ -206,12 +209,12 @@ public class User extends JFrame {
 		btnNewCall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
-				CallRecord frame = new CallRecord();
+				CallRecord frame = new CallRecord(detalle);
 				frame.setVisible(true);
 				dispose();
 			}
 		});
-		btnNewCall.setBounds(353, 582, 110, 36);
+		btnNewCall.setBounds(666, 582, 90, 36);
 		btnNewCall.setFocusable(false);
 		btnNewCall.setBackground(new Color(216, 247, 248));
 		getContentPane().add(btnNewCall);
@@ -223,12 +226,12 @@ public class User extends JFrame {
 		btnAddMedication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
-				Medication frame = new Medication();
+				Medication frame = new Medication(detalle, null);
 				frame.setVisible(true);
 				dispose();
 			}
 		});
-		btnAddMedication.setBounds(30, 582, 110, 36);
+		btnAddMedication.setBounds(30, 582, 90, 36);
 		btnAddMedication.setFocusable(false);
 		btnAddMedication.setBackground(new Color(216, 247, 248));
 		getContentPane().add(btnAddMedication);
@@ -240,12 +243,12 @@ public class User extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
 				
-				ContactInformation frame = new ContactInformation();
+				ContactInformation frame = new ContactInformation(null, detalle);
 				frame.setVisible(true);
 				dispose();
 			}
 		});
-		btnAddContact.setBounds(353, 287, 110, 36);
+		btnAddContact.setBounds(353, 287, 90, 36);
 		btnAddContact.setFocusable(false);
 		btnAddContact.setBackground(new Color(216, 247, 248));
 		getContentPane().add(btnAddContact);
@@ -257,9 +260,17 @@ public class User extends JFrame {
 		modifyContact.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamara a modificar contacto y pasar el objeto contacto
+				// llamar pantalla modficar
+				if (null == detalle.getError()) {
+					ContactInformation frame = new ContactInformation(contact, detalle);
+					frame.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(null, detalle.getError());
+				}
 			}
 		});
-		modifyContact.setBounds(646, 287, 110, 36);
+		modifyContact.setBounds(508, 287, 90, 36);
 		modifyContact.setBackground(new Color(216, 247, 248));
 		getContentPane().add(modifyContact);
 
@@ -270,9 +281,17 @@ public class User extends JFrame {
 		modifyMedication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamara a modificar medicacion y pasar el objeto medicacion
+				// llamar pantalla de moficar
+				if (null == detalle.getError()) {
+					Medication frame = new Medication(detalle, medicament);
+					frame.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, detalle.getError());
+				}
 			}
 		});
-		modifyMedication.setBounds(219, 582, 110, 36);
+		modifyMedication.setBounds(135, 582, 90, 36);
 		modifyMedication.setFocusable(false);
 		modifyMedication.setBackground(new Color(216, 247, 248));
 		getContentPane().add(modifyMedication);
@@ -286,7 +305,7 @@ public class User extends JFrame {
 				// llamar a modificar personal data
 
 				if (null == detalle.getError()) {
-					UserRegister frame = new UserRegister();
+					UserRegister frame = new UserRegister(detalle);
 					frame.setVisible(true);
 					dispose();
 				}else {
@@ -294,7 +313,7 @@ public class User extends JFrame {
 				}
 			}
 		});
-		btnModifyPersonalData.setBounds(30, 287, 110, 36);
+		btnModifyPersonalData.setBounds(30, 287, 90, 36);
 		btnModifyPersonalData.setFocusable(false);
 		btnModifyPersonalData.setBackground(new Color(216, 247, 248));
 		getContentPane().add(btnModifyPersonalData);
@@ -326,6 +345,44 @@ public class User extends JFrame {
 		});
 		getContentPane().add(returnButton);
 
+		btnDeleteUser = new JButton("Borrar");
+		btnDeleteUser.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDeleteUser.setFocusable(false);
+		btnDeleteUser.setBackground(new Color(216, 247, 248));
+		btnDeleteUser.setBounds(239, 287, 90, 36);
+		btnDeleteUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, "¿Desea borrar esta persona?");
+			}
+		});
+		getContentPane().add(btnDeleteUser);
+
+		btnDeleteContact = new JButton("Borrar");
+		btnDeleteContact.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDeleteContact.setFocusable(false);
+		btnDeleteContact.setBackground(new Color(216, 247, 248));
+		btnDeleteContact.setBounds(666, 287, 90, 36);
+		btnDeleteContact.setEnabled(false);
+		btnDeleteContact.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, "¿Desea borrar esta persona?");
+			}
+		});
+		getContentPane().add(btnDeleteContact);
+		
+		btnDeleteMedication = new JButton("Borrar");
+		btnDeleteMedication.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDeleteMedication.setFocusable(false);
+		btnDeleteMedication.setBackground(new Color(216, 247, 248));
+		btnDeleteMedication.setBounds(239, 582, 90, 36);
+		btnDeleteMedication.setEnabled(false);
+		btnDeleteMedication.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showConfirmDialog(null, "¿Desea borrar esta medicación?");
+			}
+		});
+		getContentPane().add(btnDeleteMedication);
+
 
 	}
 	
@@ -336,7 +393,7 @@ public class User extends JFrame {
 		for (int i = 0; i < detalle.getMedicamentList().size(); i++) {
 			datosMedical[i][0] = detalle.getMedicamentList().get(i).getName();
 			datosMedical[i][1] = detalle.getMedicamentList().get(i).getBaseMedicine();
-			//datosMedical[i][2] = detalle.getMedicamentList().get(i).getLaboratory();
+			datosMedical[i][2] = detalle.getMedicamentList().get(i).getDiaryIngest();
 			//datosMedical[i][3] = detalle.getMedicamentList().get(i).getAmount();
 		};
 	}
@@ -378,16 +435,20 @@ public class User extends JFrame {
 				if (row >= 0 && col >= 0) {
 					if (typeTable.equals("medical")) {
 						modifyMedication.setEnabled(true);
-						medicament = new Medicament ();
+                        btnDeleteMedication.setEnabled(true);
 						
 						// monta objeto medicina
-						// llamar pantalla de moficar
+						medicament = new Medicament();
+						medicament.setBaseMedicine(data[row][1].toString());
+						medicament.setDiaryIngest(data[row][2].toString());
+						medicament.setName(data[row][0].toString());
 					} else {
 						modifyContact.setEnabled(true);
+						btnDeleteContact.setEnabled(true);
 						contact = new Person();
 						contact.setUserName(data[row][0].toString());
 						contact.setDocument(data[row][1].toString());
-						contact.setTf(data[row][2].toString());
+						contact.setTf(data[row][2] != null ? data[row][2].toString() : null);
 						// llamar pantalla modficar
 					}
 //					for (int i = 0; i < data[row].length; i++) {

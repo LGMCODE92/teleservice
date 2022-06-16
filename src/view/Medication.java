@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import domain.Medicament;
+import domain.Person;
+
 public class Medication extends JFrame {
 
 	//declaración variables
@@ -34,26 +37,11 @@ public class Medication extends JFrame {
 	private JComboBox<String> tomas;
 	
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Medication frame = new Medication();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Medication() {
+	public Medication(Person person, Medicament medicament) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -111,7 +99,7 @@ public class Medication extends JFrame {
 		txtDateCall.setBackground(Color.WHITE);
 		txtDateCall.setBounds(378, 295, 145, 31);
 		contentPane.add(txtDateCall);
-		
+
 		
 		
 		
@@ -122,7 +110,11 @@ public class Medication extends JFrame {
         for(int i=0;i<tomasDiarias.length;i++) {
         	tomas.addItem(String.valueOf(tomasDiarias[i]).toString());
         }
-        
+		if (null != medicament) {
+			txtAdresseeCall.setText(medicament.getName());
+			txtDateCall.setText(medicament.getBaseMedicine());
+			tomas.setSelectedItem(medicament.getDiaryIngest().toString());
+		}
         ///comboSex.addItemListener();
 		tomas.setBorder(null);
 		tomas.setBackground(Color.WHITE);
@@ -192,7 +184,7 @@ public class Medication extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserRegister frame = new UserRegister();
+				User frame = new User(person);
 				frame.setVisible(true);
 				dispose();
 			}

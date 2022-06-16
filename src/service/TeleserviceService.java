@@ -30,43 +30,62 @@ public class TeleserviceService {
         boolean isLogin = false;
         Medicament medicament= new Medicament();
         CallLog callLog = new CallLog();
+        CallLog callLog2 = new CallLog();
+        Person contract = new Person();
+
+        
         
         superUser.setOperator("paquito");
+        superUser.setUserName("Francisco");
+        superUser.setUserSurname("De la Rosa Calvo");
         superUser.setPassword("12345");
-        superUser.setDocument("12345678g");
+        superUser.setDocument("12345678G");
         superUser.setTf("123456789");
         superUser.setAddress("asd");
+        
+        contract.setUserRef("12345678G");
+        contract.setDocument("12345678F");
+        contract.setTf("123123123");
+        contract.setUserName("Perejildo");
+        contract.setUserSurname("Muerde LLantas");
         
         medicament.setName("Ibuprofeno");
         medicament.setAmount(2);
         medicament.setBaseMedicine("Ibu");
         medicament.setDiaryIngest("34");
-        medicament.setUserDocument("12345678g");
+        medicament.setUserDocument("12345678G");
 
         callLog.setOperator(superUser.getOperator());
         callLog.setDocument(superUser.getDocument());
         callLog.setContactPerson("pepito");
         callLog.setCallReason("CallReason");
+        callLog2.setOperator(superUser.getOperator()+2);
+        callLog2.setDocument(superUser.getDocument());
+        callLog2.setContactPerson("pepito2");
+        callLog2.setCallReason("CallReason2");
         System.out.println(callLog);
-       try {
-    	   for(int i =1; i<5;i++)
-		System.out.println((callLogRepository.findCalls(superUser, conn)).get(i).toString());
-	} catch (SQLException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+//       try {
+//    	   for(int i =1; i<5;i++)
+//		System.out.println((callLogRepository.findCalls(superUser, conn)).get(i).toString());
+//	} catch (SQLException e1) {
+//		// TODO Auto-generated catch block
+//		e1.printStackTrace();
+//	}
         
         try{
         	try {
-        		
+        		callLogRepository.dropTable(conn);
         		callLogRepository.createTable(conn);
         		callLogRepository.insert(callLog, conn);
-        		callLogRepository.delete(superUser, conn);
+        		callLogRepository.insert(callLog2, conn);
+        		//callLogRepository.delete(superUser, conn);
         		
             personRepository.dropTable(conn);
             personRepository.createTable(conn);
             personRepository.insert(superUser,conn);
             personRepository.update(superUser, conn);
+            personRepository.insert(contract,conn);
+ //           personRepository.update(contract, conn);
 //            personRepository.delete(superUser, conn);
             
             medicamentRepository.dropTable(conn);

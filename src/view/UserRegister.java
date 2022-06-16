@@ -22,6 +22,9 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
+
+import domain.Person;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -46,27 +49,12 @@ public class UserRegister extends JFrame {
 	 private JComboBox<String> comboSex;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserRegister frame = new UserRegister();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public UserRegister() {
+	public UserRegister(Person person) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -123,30 +111,21 @@ public class UserRegister extends JFrame {
 		contentPane.add(civilStatusUser);
 		
 		
-		String estadoCivil[]={"Soltero/a", "Casado/a", "Viudo/a"};
+		String estadoCivil[]={"Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a"};
 		comboSex=new JComboBox<String>();
 		comboSex.setBounds(578, 261, 145, 31);
         getContentPane().add(comboSex);
         for(int i=0;i<estadoCivil.length;i++) {
         	comboSex.addItem(String.valueOf(estadoCivil[i]).toString());
         }
-        
-        ///comboSex.addItemListener();
+
+       
 		comboSex.setBorder(null);
 		comboSex.setBackground(Color.WHITE);
 		comboSex.setFocusable(false);
-		
 		comboSex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-		
-//		txtCivilStatusUser = new JTextField();
-//		txtCivilStatusUser.setBounds(578, 261, 145, 31);
-//		txtCivilStatusUser.setBorder(null);
-//		contentPane.add(txtCivilStatusUser);
-//		txtCivilStatusUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		txtCivilStatusUser.setBackground(Color.WHITE);
-//		txtCivilStatusUser.setColumns(10);
-		
+
 		txtSurnameUser = new JTextField();
 		txtSurnameUser.setColumns(10);
 		txtSurnameUser.setBorder(null);
@@ -154,7 +133,7 @@ public class UserRegister extends JFrame {
 		txtSurnameUser.setBackground(Color.WHITE);
 		txtSurnameUser.setBounds(230, 200, 145, 31);
 		contentPane.add(txtSurnameUser);
-		
+
 		String sexo[]={"H", "M"};
 		comboSex=new JComboBox<String>();
 		comboSex.setBounds(230, 261, 145, 31);
@@ -162,23 +141,12 @@ public class UserRegister extends JFrame {
         for(int i=0;i<sexo.length;i++) {
         	comboSex.addItem(String.valueOf(sexo[i]).toString());
         }
-        
-        ///comboSex.addItemListener();
 		comboSex.setBorder(null);
 		comboSex.setBackground(Color.WHITE);
 		comboSex.setFocusable(false);
 		
 		comboSex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 
-		
-		
-//		txtSexUser = new JTextField();
-//		txtSexUser.setColumns(10);
-//		txtSexUser.setBorder(null);
-//		txtSexUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		txtSexUser.setBackground(Color.WHITE);
-//		txtSexUser.setBounds(230, 261, 145, 31);
-//		contentPane.add(txtSexUser);
 		
 		txtDateBirthUser = new JTextField();
 		txtDateBirthUser.setColumns(10);
@@ -187,7 +155,7 @@ public class UserRegister extends JFrame {
 		txtDateBirthUser.setBackground(Color.WHITE);
 		txtDateBirthUser.setBounds(230, 321, 145, 31);
 		contentPane.add(txtDateBirthUser);
-		
+
 		txtHealthStatusUser = new JTextField();
 		txtHealthStatusUser.setColumns(10);
 		txtHealthStatusUser.setBorder(null);
@@ -216,7 +184,7 @@ public class UserRegister extends JFrame {
 		txtTfUser.setBackground(Color.WHITE);
 		txtTfUser.setBounds(578, 200, 145, 31);
 		contentPane.add(txtTfUser);
-		
+
 		
 		txtNameUser = new JTextField();
 		txtNameUser.setBounds(230, 141, 145, 31);
@@ -225,7 +193,16 @@ public class UserRegister extends JFrame {
 		txtNameUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtNameUser.setBackground(Color.WHITE);
 		txtNameUser.setColumns(10);
-	
+		
+        if (person != null) {
+        	comboSex.setSelectedItem(person.getSex().toString());
+        	txtSurnameUser.setText(person.getUserSurname());
+        	txtDateBirthUser.setText(person.getDateBirth());
+        	txtHealthStatusUser.setText(person.getHealthStatus());
+        	txtTfUser.setText(person.getTf());
+        	txtDniUser.setText(person.getDocument());
+        	txtNameUser.setText(person.getUserName());
+        }
 
 		JButton saveButton = new JButton(" Guardar usuario");
 		saveButton.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -290,21 +267,12 @@ public class UserRegister extends JFrame {
         for(int i=0;i<ayudaDomicilio.length;i++) {
         	comboSex.addItem(String.valueOf(ayudaDomicilio[i]).toString());
         }
-        
-        ///comboSex.addItemListener();
 		comboSex.setBorder(null);
 		comboSex.setBackground(Color.WHITE);
 		comboSex.setFocusable(false);
 		
 		comboSex.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
-//		txtHelpHomeUser = new JTextField();
-//		txtHelpHomeUser.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		txtHelpHomeUser.setColumns(10);
-//		txtHelpHomeUser.setBorder(null);
-//		txtHelpHomeUser.setBackground(Color.WHITE);
-//		txtHelpHomeUser.setBounds(578, 384, 145, 31);
-//		contentPane.add(txtHelpHomeUser);
 		
 		JLabel warningUser = new JLabel("Avisos");
 		warningUser.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -406,11 +374,5 @@ public class UserRegister extends JFrame {
 		
 
 	}
-	
-//	public void itemStateChanged(ItemEvent e) {
-//        if (e.getSource()==comboSex) {
-//            String seleccionado=(String)comboSex.getSelectedItem();
-//            setTitle(seleccionado);
-//        }
-//    }
+
 }

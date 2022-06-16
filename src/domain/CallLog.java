@@ -7,12 +7,12 @@ import java.sql.Date;
 
 public class CallLog {
 	
-	
-    private String operator;
+	private int id;
+	private String operator;
 	private String document;
     private String callReason; 
     private String contactPerson; //Persona que llama
-    private Date date;
+    private String date;
     //private String UserDocument;
 	private boolean deleted;
 	private String error;
@@ -85,14 +85,28 @@ public class CallLog {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
+	}
+	/**
+	 * 
+	 * @return the index
+	 */
+    public int getId() {
+		return id;
+	}
+    /**
+     * 
+     * @param the id
+     */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	 @Override
