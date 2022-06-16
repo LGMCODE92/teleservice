@@ -7,7 +7,7 @@ import repository.MedicamentRepository;
 import repository.PersonRepository;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 
 import config.Connect;
 public class TeleserviceService {
@@ -43,13 +43,18 @@ public class TeleserviceService {
         medicament.setDiaryIngest("34");
         medicament.setUserDocument("12345678g");
 
-        callLog.setDate(new Date());
         callLog.setOperator(superUser.getOperator());
         callLog.setDocument(superUser.getDocument());
         callLog.setContactPerson("pepito");
         callLog.setCallReason("CallReason");
-        
-       
+        System.out.println(callLog);
+       try {
+    	   for(int i =1; i<5;i++)
+		System.out.println((callLogRepository.findCalls(superUser, conn)).get(i).toString());
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
         
         try{
         	try {
