@@ -50,7 +50,7 @@ public class TeleserviceService {
         contract.setUserSurname("Muerde LLantas");
         
         medicament.setName("Ibuprofeno");
-        medicament.setAmount(2);
+     //   medicament.setAmount(2);
         medicament.setBaseMedicine("Ibu");
         medicament.setDiaryIngest("34");
         medicament.setUserDocument("12345678G");

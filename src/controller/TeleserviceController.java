@@ -19,6 +19,7 @@ public class TeleserviceController {
             user.loginValid();
             response = teleserviceService.login(user);
         }catch (Exception e){
+        	e.printStackTrace();
         	System.out.println("ErrorTeleserviceControler");
         	response = new Person();
             response.setError(e.getMessage());

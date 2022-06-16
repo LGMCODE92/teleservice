@@ -237,6 +237,16 @@ public class Search extends JFrame {
 		});
 		returnButton.setToolTipText("Volver");
 		contentPane.add(returnButton);
+		
+		JButton configButton = new JButton("");
+		configButton.setFont(new Font("Tahoma", Font.BOLD, 20));
+		configButton.setFocusable(false);
+		configButton.setBorder(null);
+		configButton.setBackground(new Color(244, 247, 255));
+		configButton.setBounds(715, 21, 61, 38);
+		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		configButton.setToolTipText("Configuracion");
+		contentPane.add(configButton);
 
 	}
 	
