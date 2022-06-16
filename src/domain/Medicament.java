@@ -8,8 +8,8 @@ package domain;
  *
  */
 public class Medicament {
-	
-	private String name;
+	private int id;
+    private String name;
 	private String diaryIngest;
 	private String baseMedicine;
 	private int amount;
@@ -101,6 +101,20 @@ public class Medicament {
 	
 	public void setError(String error) {
 		this.error = error;
+	}
+	/**
+	 * getId
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * setId
+	 * @param the id
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

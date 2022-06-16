@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class CallLog {
 	
-	
-    private String operator;
+	private int id;
+	private String operator;
 	private String document;
     private String callReason; 
     private String contactPerson; //Persona que llama
@@ -93,6 +93,20 @@ public class CallLog {
 	 */
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	/**
+	 * 
+	 * @return the index
+	 */
+    public int getId() {
+		return id;
+	}
+    /**
+     * 
+     * @param the id
+     */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

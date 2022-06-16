@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import domain.Person;
+
 public class CallRecord extends JFrame {
 
 	//declaración variables
@@ -31,26 +33,12 @@ public class CallRecord extends JFrame {
 	private JTextField txtOperatorCall;
 	private JTextField txtActionCall;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CallRecord frame = new CallRecord();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public CallRecord() {
+	public CallRecord(Person person) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -206,7 +194,7 @@ public class CallRecord extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserRegister frame = new UserRegister();
+				User frame = new User(person);
 				frame.setVisible(true);
 				dispose();
 			}

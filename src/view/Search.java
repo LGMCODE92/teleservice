@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.PersonController;
 import domain.CallLog;
 import domain.Medicament;
 import domain.Person;
@@ -38,6 +39,7 @@ public class Search extends JFrame {
 	private JTextField txtBuscar;
 	private JTextField txtSearch;
 	private JButton btnNewButton_1;
+	
 
 	/**
 	 * Create the frame.
@@ -116,18 +118,21 @@ public class Search extends JFrame {
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtSearch.getText().length() == 9) {
+					Person request = new Person();
 					//
 					//
 					if (txtSearch.getText().toUpperCase().matches("[0-9]{9}")) {
 						// seteamos TF
-						System.out.println("TF");
+						request.setTf(txtSearch.getText().toUpperCase());
 					} else if (txtSearch.getText().substring(0, 8).matches("[0-9]{8}")
-							&& txtSearch.getText().substring(8, 9).matches("[A-Z]*")) {
+							&& txtSearch.getText().substring(8, 9).toUpperCase().matches("[A-Z]*")) {
 						// seteamos DNI
-						System.out.println("DNI");
+						request.setDocument(txtSearch.getText().toUpperCase());
 					}
 					Person detalle = null; // llamamos al controlador que nos busca el detalle
-					detalle = getPersonMock();
+					PersonController controller = new PersonController();
+					
+					detalle = controller.getPerson(request);
 
 					
 					if (null == detalle.getError()) {
@@ -164,6 +169,7 @@ public class Search extends JFrame {
 				// ir al alta y cerrar
 				//JOptionPane.showMessageDialog(null, "ir a registrarse");
 				Person detalle = null; // llamamos al controlador que nos busca el detalle
+
 				detalle = getPersonMock();
 
 				if (null == detalle.getError()) {
@@ -195,7 +201,7 @@ public class Search extends JFrame {
 				detalle = getPersonMock();
 
 				if (null == detalle.getError()) {
-					UserRegister frame = new UserRegister();
+					UserRegister frame = new UserRegister(null);
 					frame.setVisible(true);
 					dispose();
 				}else {
@@ -236,6 +242,8 @@ public class Search extends JFrame {
 	
 	private Person getPersonMock() {
 		Person response = new Person();
+		response.setUserName("Julian");
+		response.setUserSurname("Muñoz");
 		response.setAddress("C/ Pantoja");
 		response.setCivilStatus("Soltero");
 		response.setDateBirth("25/08/1991");
@@ -257,13 +265,13 @@ public class Search extends JFrame {
 		Medicament medicament = new Medicament();
 		medicament.setName("Ibuprofeno");
 		medicament.setBaseMedicine("P. Activo 1");
-		//medicament.setLaboratory("Cinfa");
+		medicament.setDiaryIngest("2");
 		medicament.setAmount(3);
 		
 		Medicament medicament2 = new Medicament();
 		medicament2.setName("Paracetamol");
 		medicament2.setBaseMedicine("P. Activo 1");
-		//medicament2.setLaboratory("Pfizer");
+		medicament2.setDiaryIngest("2");
 		medicament2.setAmount(5);
 		
 		List<Medicament> medicamentlist = new ArrayList();

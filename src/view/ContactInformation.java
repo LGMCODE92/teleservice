@@ -21,9 +21,14 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import domain.Person;
+
 public class ContactInformation extends JFrame {
 
 	//declaración variables
+	private Person person;
+
+
 	private JPanel contentPane;
 	private JTextField txtNameOperator;
 	private JTextField txtSurnameOperator;
@@ -31,26 +36,12 @@ public class ContactInformation extends JFrame {
 	private JTextField txtEmailOperator;
 	private JTextField txtRelationshipContactInfo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ContactInformation frame = new ContactInformation();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public ContactInformation() {
+	public ContactInformation(Person contract, Person person) {
+		this.person = contract;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,6 +66,7 @@ public class ContactInformation extends JFrame {
 		JLabel nameOperator = new JLabel("Nombre");
 		nameOperator.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		nameOperator.setBounds(288, 172, 86, 31);
+
 		contentPane.add(nameOperator);
 		
 		JLabel surnameOperator = new JLabel("Apellidos");
@@ -109,6 +101,7 @@ public class ContactInformation extends JFrame {
 		txtNameOperator.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtNameOperator.setBackground(Color.WHITE);
 		txtNameOperator.setColumns(10);
+
 		
 		txtSurnameOperator = new JTextField();
 		txtSurnameOperator.setColumns(10);
@@ -141,6 +134,12 @@ public class ContactInformation extends JFrame {
 		txtRelationshipContactInfo.setBackground(Color.WHITE);
 		txtRelationshipContactInfo.setBounds(378, 404, 145, 31);
 		contentPane.add(txtRelationshipContactInfo);
+		if (contract != null) {
+			txtNameOperator.setText(contract.getUserName());
+			txtSurnameOperator.setText(contract.getUserSurname());
+			txtDniOperator.setText(contract.getDocument());
+			txtEmailOperator.setText(contract.getTf());
+		}
 		//txtPw.addKeyListener(redirectEvent);
 		
 		JLabel searchLabel = new JLabel("Introduzca los datos de la persona de contacto");
@@ -206,7 +205,7 @@ public class ContactInformation extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserRegister frame = new UserRegister();
+				User frame = new User(person);
 				frame.setVisible(true);
 				dispose();
 			}

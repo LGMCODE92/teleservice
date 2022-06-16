@@ -5,13 +5,11 @@ package repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import domain.Medicament;
 import domain.Person;
 
@@ -53,14 +51,14 @@ public class MedicamentRepository {
 			String sql = "CREATE TABLE IF NOT EXISTS MEDICAMENTS (" + " ID INTEGER PRIMARY KEY AUTOINCREMENT, "
 					+ " NAME TEXT NOT NULL, " + " DIARYINGEST TEXT NOT NULL," + " BASEMEDICINE TEXT NOT NULL,"
 					+ " AMOUNT INT NOT NULL," + " USERDOCUMENT TEXT NOT NULL," // FOREIGN KEY
-					+ " DELETED BOOLEAN NOT NULL, FOREIGN KEY (USERDOCUMENT) REFERENCES PERSONS (DOCUMENT) );";
+					+ " DELETED BOOLEAN NOT NULL, FOREIGN KEY (USERDOCUMENT) REFERENCES PERSONS (DOCUMENT) ON DELETE CASCADE);";
 			stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (Exception e) {
 			System.err.println("MR60"+e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		System.out.println("Table created!!!");
+		System.out.println("Table Medicaments created!!!");
 	}
 
 	public void update(Medicament entity, Connection conn) throws SQLException {
@@ -72,7 +70,7 @@ public class MedicamentRepository {
 				+ "AMOUNT=?, "
 				+ "USERDOCUMENT=?, "
 				+ "DELETED=? "
-				+ "WHERE USERDOCUMENT = ?;";
+				+ "WHERE ID = ?;";
 
 		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
 			// Fills query params
@@ -82,7 +80,7 @@ public class MedicamentRepository {
 			psUpdate.setInt(4,entity.getAmount());
 			psUpdate.setString(5, entity.getUserDocument());
 			psUpdate.setBoolean(6, entity.isDeleted());
-			psUpdate.setString(7, entity.getUserDocument());
+			psUpdate.setInt(7, entity.getId());
 			// Execute update
 			psUpdate.execute();
 		} catch (SQLException e) {
@@ -120,11 +118,26 @@ public class MedicamentRepository {
 			throw e;
 		}
 	}
+	
+	public void deleteById(Medicament entity, Connection conn) throws SQLException {
 
-	public List<Map<String, String>> findMedicaments(Person entity, Connection conn) throws SQLException {
+		// SQL Query
+		String sqlUpdate = "UPDATE MEDICAMENTS SET DELETED=?" + "WHERE ID = ?";
 
-		List<Map<String, String>> response = new ArrayList<>();
-		String sql = "SELECT * FROM MEDICAMENTS WHERE DOCUMENT = ? ";
+		try (PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate)) {
+			// Fills query params
+			psUpdate.setBoolean(1, true);
+			psUpdate.setInt(2, entity.getId());
+			// Execute update
+			psUpdate.execute();
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
+	public List<Medicament> findMedicaments(Person entity, Connection conn) throws SQLException {
+        List<Medicament> medicaments = new ArrayList<Medicament>();
+		String sql = "SELECT * FROM MEDICAMENTS WHERE USERDOCUMENT = ?  AND DELETED = false";
 
 		System.out.println(sql);
 		try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -132,15 +145,28 @@ public class MedicamentRepository {
 			ps.setString(1, entity.getDocument());
 
 			try (ResultSet rs = ps.executeQuery()) {
-				ResultSetMetaData md = rs.getMetaData();
-				int columns = md.getColumnCount();
-				Map<String, String> responseItem = new HashMap<>();
-				for (int i = 1; i <= columns; ++i) {
-					responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
+//				ResultSetMetaData md = rs.getMetaData();
+//				int columns = md.getColumnCount();
+//				Map<String, String> responseItem = new HashMap<>();
+//				for (int i = 1; i <= columns; ++i) {
+//					responseItem.put(md.getColumnName(i), rs.getObject(i).toString());
+//				}
+				while( rs.next()) {
+
+					 
+					Medicament aux = new Medicament();
+					aux.setAmount(rs.getString("AMOUNT") != null ? Integer.parseInt(rs.getString("AMOUNT")): 0);
+					aux.setBaseMedicine(rs.getString("BASEMEDICINE"));
+					aux.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
+					aux.setDiaryIngest(rs.getString("DIARYINGEST"));
+					aux.setName(rs.getString("NAME"));
+					aux.setUserDocument(rs.getString("USERDOCUMENT"));
+					aux.setId(rs.getInt("ID"));
+					medicaments.add(aux);
 				}
-				response.add(responseItem);
+
 			}
-			return response;
+			return medicaments;
 		} catch (SQLException e) {
 			throw e;
 		}
