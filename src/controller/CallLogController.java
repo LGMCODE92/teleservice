@@ -14,7 +14,7 @@ public class CallLogController {
      * @return String with status response
      */
     public String saveCall ( CallLog callLog){
-    	String response = "OK";
+    	String response = "Llamada realizada correctamente";
         try{
         	callLogService.saveCall(callLog);
 

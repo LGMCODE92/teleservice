@@ -15,12 +15,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.CallLogController;
+import controller.PersonController;
+import domain.CallLog;
 import domain.Person;
 
 public class CallRecord extends JFrame {
@@ -32,13 +36,16 @@ public class CallRecord extends JFrame {
 	private JTextField txtReasonCall;
 	private JTextField txtOperatorCall;
 	private JTextField txtActionCall;
-
+    private CallLogController callLogController;
+    private PersonController personController;
 
 
 	/**
 	 * Create the frame.
 	 */
 	public CallRecord(Person person) {
+		callLogController = new CallLogController();
+		personController = new PersonController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -81,10 +88,10 @@ public class CallRecord extends JFrame {
 		operatorCall.setBounds(282, 346, 86, 38);
 		contentPane.add(operatorCall);
 		
-		JLabel actionCall = new JLabel("Acciones");
-		actionCall.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		actionCall.setBounds(282, 404, 86, 39);
-		contentPane.add(actionCall);
+//		JLabel actionCall = new JLabel("Acciones");
+//		actionCall.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//		actionCall.setBounds(282, 404, 86, 39);
+//		contentPane.add(actionCall);
 		
 		String pw= "Contraseña";
 			
@@ -122,13 +129,13 @@ public class CallRecord extends JFrame {
 		txtOperatorCall.setBounds(378, 346, 145, 31);
 		contentPane.add(txtOperatorCall);
 		
-		txtActionCall = new JTextField();
-		txtActionCall.setColumns(10);
-		txtActionCall.setBorder(null);
-		txtActionCall.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtActionCall.setBackground(Color.WHITE);
-		txtActionCall.setBounds(378, 404, 145, 31);
-		contentPane.add(txtActionCall);
+//		txtActionCall = new JTextField();
+//		txtActionCall.setColumns(10);
+//		txtActionCall.setBorder(null);
+//		txtActionCall.setFont(new Font("Tahoma", Font.PLAIN, 18));
+//		txtActionCall.setBackground(Color.WHITE);
+//		txtActionCall.setBounds(378, 404, 145, 31);
+//		contentPane.add(txtActionCall);
 		//txtPw.addKeyListener(redirectEvent);
 		
 		JLabel searchLabel = new JLabel("Introduzca los datos de la llamada");
@@ -144,6 +151,26 @@ public class CallRecord extends JFrame {
 		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
 		saveButton.setBounds(225, 518, 335, 38);
+		saveButton.setBounds(225, 518, 335, 38);
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CallLog request = new CallLog();
+				request.setCallReason(txtReasonCall.getText());
+				request.setContactPerson(txtAdresseeCall.getText());
+				request.setDocument(person.getDocument());
+				request.setOperator(txtOperatorCall.getText());
+				String response = "KO";
+                response = callLogController.saveCall(request);
+				JOptionPane.showMessageDialog(null, response);
+				if (response.equals("Llamada realizada correctamente")) {
+					User frame = new User(personController.getPerson(person));
+					frame.setVisible(true);
+					dispose();
+				}
+				
+
+			}
+		});
 		contentPane.add(saveButton);
 		
 		JSeparator separator = new JSeparator();
@@ -170,11 +197,11 @@ public class CallRecord extends JFrame {
 		separator4.setBounds(378, 377, 145, 2);
 		contentPane.add(separator4);
 		
-		JSeparator separator5 = new JSeparator();
-		separator5.setForeground(Color.WHITE);
-		separator5.setBackground(new Color(0, 169, 176));
-		separator5.setBounds(378, 435, 145, 2);
-		contentPane.add(separator5);
+//		JSeparator separator5 = new JSeparator();
+//		separator5.setForeground(Color.WHITE);
+//		separator5.setBackground(new Color(0, 169, 176));
+//		separator5.setBounds(378, 435, 145, 2);
+//		contentPane.add(separator5);
 		
 		JButton returnButton = new JButton("") {
 			@Override

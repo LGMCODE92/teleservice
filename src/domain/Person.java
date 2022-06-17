@@ -169,6 +169,75 @@ public class Person {
 
 	}
 
+
+	public void insertOrUpdateContractValid() throws Exception {
+
+		if (userName == null || userName.length() == 0) {
+			throw new Exception("Nombre de usuario obligatorio");
+		}
+		if (document == null || document.length() == 0) {
+			throw new Exception("DNI obligatorio");
+		}
+		if (document.length() != 9 || !(document.substring(0, 8).matches("[0-9]{8}")
+				&& document.substring(8, 9).toUpperCase().matches("[A-Z]*"))) {
+			throw new Exception("DNI Incorrecto");
+		}
+
+		if (tf == null || tf.length() == 0) {
+			throw new Exception("Telefono obligatorio");
+		}
+		if ( tf.length() != 9 || !tf.toUpperCase().matches("[0-9]{9}")) {
+			throw new Exception("Tf Incorrecto");
+		}
+
+		if (userSurname == null || userSurname.length() == 0) {
+			throw new Exception("Apellidos obligatorios");
+		}
+
+	}
+	public void insertOrUpdateValid() throws Exception {
+
+		if (userName == null || userName.length() == 0) {
+			throw new Exception("Nombre de usuario obligatorio");
+		}
+		if (document == null || document.length() == 0) {
+			throw new Exception("DNI obligatorio");
+		}
+		if (document.length() != 9 || !(document.substring(0, 8).matches("[0-9]{8}")
+				&& document.substring(8, 9).toUpperCase().matches("[A-Z]*"))) {
+			throw new Exception("DNI Incorrecto");
+		}
+
+		if (tf == null || tf.length() == 0) {
+			throw new Exception("Telefono obligatorio");
+		}
+		if ( tf.length() != 9 || !tf.toUpperCase().matches("[0-9]{9}")) {
+			throw new Exception("Tf Incorrecto");
+		}
+		if (address == null || address.length() == 0) {
+			throw new Exception("Direccion obligatoria");
+		}
+		if (healthStatus == null || healthStatus.length() == 0) {
+			throw new Exception("Estado de salud obligatorio");
+		}
+		if (helpHome == null || helpHome.length() == 0) {
+			throw new Exception("Ayuda al hogar obligatorio");
+		}
+		if (civilStatus == null|| civilStatus.length() == 0) {
+			throw new Exception("Estado civil obligatorio");
+		}
+		if (dateBirth == null || dateBirth.length() == 0) {
+			throw new Exception("Fecha de nacimiento obligatoria");
+		}
+		if (sex == null || sex.length() == 0) {
+			throw new Exception("Sexo obligatorio");
+		}
+		if (userSurname == null || userSurname.length() == 0) {
+			throw new Exception("Apellidos obligatorios");
+		}
+
+	}
+
 	/**
 	 * @return String return the tf
 	 */

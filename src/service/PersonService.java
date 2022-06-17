@@ -92,8 +92,6 @@ public class PersonService {
 	public void deletePerson(Person user) throws SQLException {
 
 		Connection conn = Connect.connect();
-//		callLogRepository.delete(user, conn);
-//		medicamentRepository.delete(user, conn);
 		personRepository.delete(user, conn);
 
 		conn.close();

@@ -28,8 +28,14 @@ public class PersonController {
      * @return String with status response
      */
     public String savePerson ( Person person){
-    	String response = "OK";
+    	String response = "Persona guardada correctamente";
         try{
+        	if (person.getUserRef() != null && person.getUserRef().length() > 0) {
+        		person.insertOrUpdateContractValid();
+        	}else {
+        		person.insertOrUpdateValid();
+        	}
+        	
         	personService.savePerson(person);
 
         }catch (Exception e){
@@ -46,9 +52,15 @@ public class PersonController {
      * @return String with status response
      */
     public String updatePerson ( Person person){
-    	String response = "OK";
+    	String response = "Persona actualizada correctamente";
         try{
-        	personService.savePerson(person);
+        	if (person.getUserRef() != null && person.getUserRef().length() > 0) {
+        		person.insertOrUpdateContractValid();
+        	}else {
+        		person.insertOrUpdateValid();
+        	}
+        	
+        	personService.updatePerson(person);
 
         }catch (Exception e){
         	e.printStackTrace();
@@ -64,9 +76,9 @@ public class PersonController {
      * @return String with status response
      */
     public String deletePerson ( Person person){
-    	String response = "OK";
+    	String response = "Persona eliminada correctamente";
         try{
-        	personService.savePerson(person);
+        	personService.deletePerson(person);
 
         }catch (Exception e){
         	e.printStackTrace();

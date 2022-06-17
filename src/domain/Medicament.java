@@ -116,5 +116,15 @@ public class Medicament {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void medicationSaveOrUpdateValid() throws Exception {
+		if (name == null || name.length() == 0) {
+			throw new Exception("Nombre obligatorio");
+		}
+		if (baseMedicine == null || baseMedicine.length() == 0) {
+			throw new Exception("Base de la medicina obligatoria");
+		}
+
+	}
 
 }

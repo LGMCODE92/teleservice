@@ -10,17 +10,22 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.PersonController;
+import domain.CallLog;
+import domain.Medicament;
 import domain.Person;
 
 public class ContactInformation extends JFrame {
@@ -35,6 +40,8 @@ public class ContactInformation extends JFrame {
 	private JTextField txtDniOperator;
 	private JTextField txtEmailOperator;
 	private JTextField txtRelationshipContactInfo;
+	
+	private PersonController personController;
 
 
 	/**
@@ -155,6 +162,33 @@ public class ContactInformation extends JFrame {
 		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
 		saveButton.setBounds(225, 518, 335, 38);
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				personController = new PersonController();
+				Person request = new Person();
+	            request.setUserName(txtNameOperator.getText());
+				request.setUserSurname(txtSurnameOperator.getText());
+                request.setTf(txtEmailOperator.getText());
+				request.setDocument(txtDniOperator.getText().toUpperCase());
+				request.setUserRef(person.getDocument());
+				String response = "KO";
+				if (contract != null) {
+					response = personController.updatePerson(request);
+				} else {
+					response = personController.savePerson(request);
+				}
+
+				JOptionPane.showMessageDialog(null, response);
+				if (response.equals("Persona guardada correctamente") || response.equals("Persona actualizada correctamente")) {
+					
+					User frame = new User(personController.getPerson(person));
+					frame.setVisible(true);
+					dispose();
+				}
+				
+
+			}
+		});
 		contentPane.add(saveButton);
 		
 		JSeparator separator = new JSeparator();

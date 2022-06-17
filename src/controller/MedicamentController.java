@@ -14,8 +14,9 @@ public class MedicamentController {
      * @return String with status response
      */
     public String saveMedicament ( Medicament medicament){
-    	String response = "OK";
+    	String response = "Medicamento guardado correctamente";
         try{
+        	medicament.medicationSaveOrUpdateValid();
         	medicamentService.saveMedicament(medicament);
 
         }catch (Exception e){
@@ -32,8 +33,9 @@ public class MedicamentController {
      * @return String with status response
      */
     public String updateMedicament ( Medicament medicament){
-    	String response = "OK";
+    	String response = "Medicamento actualizado correctamente";
         try{
+        	medicament.medicationSaveOrUpdateValid();
         	medicamentService.updateMedicament(medicament);
 
         }catch (Exception e){
@@ -50,7 +52,7 @@ public class MedicamentController {
      * @return String with status response
      */
     public String deleteMedicament ( Medicament medicament){
-    	String response = "OK";
+    	String response = "Medicamento eliminado correctamente";
         try{
         	medicamentService.deleteMedicament(medicament);
 

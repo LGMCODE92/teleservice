@@ -246,6 +246,13 @@ public class Search extends JFrame {
 		configButton.setBounds(715, 21, 61, 38);
 		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
 		configButton.setToolTipText("Configuracion");
+		configButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration frame = new Configuration();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
 		contentPane.add(configButton);
 
 	}

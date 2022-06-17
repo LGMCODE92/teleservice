@@ -16,12 +16,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.MedicamentController;
+import controller.PersonController;
 import domain.Medicament;
 import domain.Person;
 
@@ -35,6 +38,8 @@ public class Medication extends JFrame {
 
 	
 	private JComboBox<String> tomas;
+	private MedicamentController medicationController;
+	private PersonController personController;
 	
 	
 
@@ -146,6 +151,36 @@ public class Medication extends JFrame {
 		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
 		saveButton.setBounds(209, 482, 367, 38);
+		saveButton.setBounds(225, 518, 335, 38);
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				medicationController = new MedicamentController();
+				personController = new PersonController();
+				Medicament request = new Medicament();
+				request.setName(txtAdresseeCall.getText());
+				request.setDiaryIngest(tomas.getSelectedItem().toString());
+				request.setBaseMedicine(txtDateCall.getText());
+				request.setUserDocument(person.getDocument());
+				
+				String response = "KO";
+				if (medicament != null) {
+					request.setId(medicament.getId());
+					response = medicationController.updateMedicament(request);
+				} else {
+					response = medicationController.saveMedicament(request);
+				}
+
+				JOptionPane.showMessageDialog(null, response);
+				if (response.equals("Medicamento actualizado correctamente") || response.equals("Medicamento guardado correctamente")) {
+					
+					User frame = new User(personController.getPerson(person));
+					frame.setVisible(true);
+					dispose();
+				}
+				
+
+			}
+		});
 		contentPane.add(saveButton);
 		
 		JSeparator separator = new JSeparator();

@@ -253,7 +253,7 @@ public class PersonRepository {
 
 			try (ResultSet rs = ps.executeQuery()) {
 
-				if (rs.next()) { // ESTO NO SE CONTROLA EN EL MAIN?
+				while (rs.next()) { // ESTO NO SE CONTROLA EN EL MAIN?
 
 					res = new Person();
 					res.setUserName(rs.getString("USER_NAME"));
