@@ -24,8 +24,10 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.ConfigurationController;
 import controller.PersonController;
 import domain.CallLog;
+import domain.ConfigurationEnum;
 import domain.Medicament;
 import domain.Person;
 
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 
 public class UserRegister extends JFrame {
 	private PersonController personController;
+	private ConfigurationController configurationController;
 	// declaración variables
 	private JPanel contentPane;
 	private JTextField txtCivilStatus;
@@ -58,7 +61,8 @@ public class UserRegister extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public UserRegister(Person person) {
+	public UserRegister(Person person, Person userLogin) {
+		configurationController = new ConfigurationController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -109,8 +113,11 @@ public class UserRegister extends JFrame {
 		civilStatusUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		civilStatusUser.setBounds(461, 260, 111, 31);
 		contentPane.add(civilStatusUser);
-
-		String estadoCivil[] = { "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a" };
+		Object estadoCivil[] =  configurationController
+				.getConfigurationByCode(ConfigurationEnum.CIVIL_STATUS.name()).getConfigList().stream()
+				.map(x -> x.getValue()).toArray();
+		// String estadoCivil[] = { "Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a"
+		// };
 		civilStatus = new JComboBox<String>();
 		civilStatus.setBounds(578, 261, 145, 31);
 		getContentPane().add(civilStatus);
@@ -130,8 +137,9 @@ public class UserRegister extends JFrame {
 		txtSurnameUser.setBackground(Color.WHITE);
 		txtSurnameUser.setBounds(230, 200, 145, 31);
 		contentPane.add(txtSurnameUser);
-
-		String sexo[] = { "H", "M" };
+		Object sexo[] = configurationController.getConfigurationByCode(ConfigurationEnum.SEX.name())
+				.getConfigList().stream().map(x -> x.getValue()).toArray();
+		// String sexo[] = { "H", "M" };
 		comboSex = new JComboBox<String>();
 		comboSex.setBounds(230, 261, 145, 31);
 		getContentPane().add(comboSex);
@@ -220,15 +228,15 @@ public class UserRegister extends JFrame {
 				}
 
 				JOptionPane.showMessageDialog(null, response);
-				if (response.equals("Persona guardada correctamente") || response.equals("Persona actualizada correctamente")) {
+				if (response.equals("Persona guardada correctamente")
+						|| response.equals("Persona actualizada correctamente")) {
 					request.setMedicamentList(new ArrayList<Medicament>());
 					request.setContactsList(new ArrayList<Person>());
 					request.setCallLogList(new ArrayList<CallLog>());
-					User frame = new User(request);
+					User frame = new User(request, userLogin);
 					frame.setVisible(true);
 					dispose();
 				}
-				
 
 			}
 		});
@@ -276,8 +284,9 @@ public class UserRegister extends JFrame {
 		helpHomeUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		helpHomeUser.setBounds(409, 384, 190, 31);
 		contentPane.add(helpHomeUser);
-
-		String ayudaDomicilio[] = { "Sí", "No" };
+		Object ayudaDomicilio[] = configurationController.getConfigurationByCode(ConfigurationEnum.HELP_HOME.name())
+				.getConfigList().stream().map(x -> x.getValue()).toArray();
+		// String ayudaDomicilio[] = { "Sí", "No" };
 		helpHome = new JComboBox<String>();
 		helpHome.setBounds(578, 384, 145, 31);
 		getContentPane().add(helpHome);
@@ -377,7 +386,7 @@ public class UserRegister extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Search frame = new Search();
+				Search frame = new Search(userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

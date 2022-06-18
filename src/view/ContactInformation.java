@@ -47,7 +47,7 @@ public class ContactInformation extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ContactInformation(Person contract, Person person) {
+	public ContactInformation(Person contract, Person person, Person userLogin) {
 		this.person = contract;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -181,7 +181,7 @@ public class ContactInformation extends JFrame {
 				JOptionPane.showMessageDialog(null, response);
 				if (response.equals("Persona guardada correctamente") || response.equals("Persona actualizada correctamente")) {
 					
-					User frame = new User(personController.getPerson(person));
+					User frame = new User(personController.getPerson(person), userLogin);
 					frame.setVisible(true);
 					dispose();
 				}
@@ -239,7 +239,7 @@ public class ContactInformation extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User frame = new User(person);
+				User frame = new User(person, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

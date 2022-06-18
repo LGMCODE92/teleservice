@@ -44,7 +44,7 @@ public class Search extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Search() {
+	public Search(Person userLogin) {
 
 		setTitle("Search");
 		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
@@ -136,7 +136,7 @@ public class Search extends JFrame {
 
 					
 					if (null == detalle.getError()) {
-						User frame = new User(detalle);
+						User frame = new User(detalle, userLogin);
 						frame.setVisible(true);
 						dispose();
 					}else {
@@ -164,6 +164,7 @@ public class Search extends JFrame {
 		operatorRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		operatorRegisterButton.setBackground(new Color(244,247,255));
 		operatorRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/operatorLogin.png")));
+		operatorRegisterButton.setEnabled(userLogin.getTypeUser().equals("S"));
 		operatorRegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ir al alta y cerrar
@@ -173,7 +174,7 @@ public class Search extends JFrame {
 				detalle = getPersonMock();
 
 				if (null == detalle.getError()) {
-					OperatorRegister frame = new OperatorRegister();
+					OperatorRegister frame = new OperatorRegister(userLogin);
 					frame.setVisible(true);
 					dispose();
 				}else {
@@ -201,7 +202,7 @@ public class Search extends JFrame {
 				detalle = getPersonMock();
 
 				if (null == detalle.getError()) {
-					UserRegister frame = new UserRegister(null);
+					UserRegister frame = new UserRegister(null, userLogin);
 					frame.setVisible(true);
 					dispose();
 				}else {
@@ -246,9 +247,10 @@ public class Search extends JFrame {
 		configButton.setBounds(715, 21, 61, 38);
 		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
 		configButton.setToolTipText("Configuracion");
+		configButton.setEnabled(userLogin.getTypeUser().equals("S"));
 		configButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Configuration frame = new Configuration();
+				Configuration frame = new Configuration(userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

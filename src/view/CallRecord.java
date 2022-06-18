@@ -43,7 +43,7 @@ public class CallRecord extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CallRecord(Person person) {
+	public CallRecord(Person person, Person userLogin) {
 		callLogController = new CallLogController();
 		personController = new PersonController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,7 +163,7 @@ public class CallRecord extends JFrame {
                 response = callLogController.saveCall(request);
 				JOptionPane.showMessageDialog(null, response);
 				if (response.equals("Llamada realizada correctamente")) {
-					User frame = new User(personController.getPerson(person));
+					User frame = new User(personController.getPerson(person), userLogin);
 					frame.setVisible(true);
 					dispose();
 				}
@@ -221,7 +221,7 @@ public class CallRecord extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User frame = new User(person);
+				User frame = new User(person, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

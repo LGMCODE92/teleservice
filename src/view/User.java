@@ -93,7 +93,7 @@ public class User extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public User(Person detalle) {
+	public User(Person detalle, Person userLogin) {
 		this.detalle = detalle;
 		personController = new PersonController();
 		medicamentController = new MedicamentController();
@@ -202,7 +202,7 @@ public class User extends JFrame {
 		btnNewCall.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
-				CallRecord frame = new CallRecord(detalle);
+				CallRecord frame = new CallRecord(detalle, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -217,7 +217,7 @@ public class User extends JFrame {
 		btnAddMedication.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
-				Medication frame = new Medication(detalle, null);
+				Medication frame = new Medication(detalle, null, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -233,7 +233,7 @@ public class User extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// llamar alta contacto
 
-				ContactInformation frame = new ContactInformation(null, detalle);
+				ContactInformation frame = new ContactInformation(null, detalle, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -251,7 +251,7 @@ public class User extends JFrame {
 				// llamara a modificar contacto y pasar el objeto contacto
 				// llamar pantalla modficar
 				if (null == detalle.getError()) {
-					ContactInformation frame = new ContactInformation(contact, detalle);
+					ContactInformation frame = new ContactInformation(contact, detalle, userLogin);
 					frame.setVisible(true);
 					dispose();
 				} else {
@@ -271,7 +271,7 @@ public class User extends JFrame {
 				// llamara a modificar medicacion y pasar el objeto medicacion
 				// llamar pantalla de moficar
 				if (null == detalle.getError()) {
-					Medication frame = new Medication(detalle, medicament);
+					Medication frame = new Medication(detalle, medicament, userLogin);
 					frame.setVisible(true);
 					dispose();
 				} else {
@@ -292,7 +292,7 @@ public class User extends JFrame {
 				// llamar a modificar personal data
 
 				if (null == detalle.getError()) {
-					UserRegister frame = new UserRegister(detalle);
+					UserRegister frame = new UserRegister(detalle, userLogin);
 					frame.setVisible(true);
 					dispose();
 				} else {
@@ -324,7 +324,7 @@ public class User extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Search frame = new Search();
+				Search frame = new Search(userLogin);
 				frame.setVisible(true);
 				dispose();
 			}
@@ -345,7 +345,7 @@ public class User extends JFrame {
 				}
 				JOptionPane.showMessageDialog(null, response);
 				if (response.equals("Persona eliminada correctamente")) {
-					Search frame = new Search();
+					Search frame = new Search(userLogin);
 					frame.setVisible(true);
 					dispose();
 				}
@@ -371,7 +371,7 @@ public class User extends JFrame {
 				if (response.equals("Persona eliminada correctamente")) {
 					detalle.getContactsList()
 							.removeIf(person -> person.getDocument().equalsIgnoreCase(contact.getDocument()));
-					User frame = new User(detalle);
+					User frame = new User(detalle, userLogin);
 					frame.setVisible(true);
 					dispose();
 
@@ -398,7 +398,7 @@ public class User extends JFrame {
 				if (response.equals("Medicamento eliminado correctamente")) {
 					// remover medicamento del array
 					detalle.getMedicamentList().removeIf(med -> med.getId() == medicament.getId());
-					User frame = new User(detalle);
+					User frame = new User(detalle, userLogin);
 					frame.setVisible(true);
 					dispose();
 

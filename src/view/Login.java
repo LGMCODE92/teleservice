@@ -60,7 +60,7 @@ public class Login extends JFrame {
 							new String(passwordField.getPassword()));
 					if (null == res.getError()) {
 
-						Search frame = new Search();
+						Search frame = new Search(res);
 						frame.setVisible(true);
 						dispose();
 					} else {
@@ -173,7 +173,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Person res = teleserviceController.login(txtUser.getText(), new String(passwordField.getPassword()));
 				if (null == res.getError()) {
-					Search frame = new Search();
+					Search frame = new Search(res);
 					frame.setVisible(true);
 					dispose();
 				} else {

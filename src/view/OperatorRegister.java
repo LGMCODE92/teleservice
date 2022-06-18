@@ -1,8 +1,6 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,17 +9,21 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import controller.PersonController;
+
+import domain.Person;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.JToolTip;
-import java.awt.SystemColor;
 
 public class OperatorRegister extends JFrame {
 
@@ -33,28 +35,18 @@ public class OperatorRegister extends JFrame {
 	private JTextField txtEmailOperator;
 	private JTextField txtUsername;
 	private JTextField txtPw;
+	
+	private PersonController personController;
 
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					OperatorRegister frame = new OperatorRegister();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
+
 
 	/**
 	 * Create the frame.
 	 */
-	public OperatorRegister() {
+	public OperatorRegister(Person userLogin) {
+		personController = new PersonController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -174,6 +166,28 @@ public class OperatorRegister extends JFrame {
 		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
 		saveButton.setBounds(268, 535, 250, 38);
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				personController = new PersonController();
+				Person request = new Person();
+				request.setPassword(txtPw.getText());
+				request.setUserSurname(txtSurnameOperator.getText());
+				request.setUserName(txtNameOperator.getText());
+				request.setTf(txtEmailOperator.getText());
+				request.setDocument(txtDniOperator.getText());
+				request.setOperator(txtUsername.getText());
+				request.setTypeUser("O");
+				
+				String response = "KO";
+                response = personController.savePerson(request);
+				
+
+				JOptionPane.showMessageDialog(null, response);
+
+				
+
+			}
+		});
 		contentPane.add(saveButton);
 		
 		JSeparator separator = new JSeparator();
@@ -230,7 +244,7 @@ public class OperatorRegister extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Search frame = new Search();
+				Search frame = new Search(userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

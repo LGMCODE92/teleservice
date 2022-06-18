@@ -177,6 +177,7 @@ public class PersonRepository {
 					res.setOperator(rs.getString("OPERATOR"));
 					res.setPassword(rs.getString("PASSWORD"));
 					res.setDocument(rs.getString("DOCUMENT"));
+					res.setTypeUser(rs.getString("USER_TYPE"));
 					res.setTf(rs.getString("TF"));
 					res.setDeleted(Boolean.valueOf(rs.getString("DELETED")));
 				}

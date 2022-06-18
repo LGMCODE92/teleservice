@@ -238,6 +238,35 @@ public class Person {
 
 	}
 
+	public void insertOperatorValid() throws Exception {
+
+		if (userName == null || userName.length() == 0) {
+			throw new Exception("Nombre de usuario obligatorio");
+		}
+		if (document == null || document.length() == 0) {
+			throw new Exception("DNI obligatorio");
+		}
+		if (document.length() != 9 || !(document.substring(0, 8).matches("[0-9]{8}")
+				&& document.substring(8, 9).toUpperCase().matches("[A-Z]*"))) {
+			throw new Exception("DNI Incorrecto");
+		}
+
+		if (tf == null || tf.length() == 0) {
+			throw new Exception("Telefono obligatorio");
+		}
+
+		if (userSurname == null || userSurname.length() == 0) {
+			throw new Exception("Apellidos obligatorios");
+		}
+		if (password == null || password.length() < 3) {
+			throw new Exception("La contraseña es obligatoria y tiene que tener como minimo 4 caracteres");
+		}
+		if (operator == null || operator.length() < 2) {
+			throw new Exception("El nombre de usuario es obligatorio y tiene que tener como minimo 2 caracteres");
+		}
+
+	}
+
 	/**
 	 * @return String return the tf
 	 */

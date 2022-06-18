@@ -23,8 +23,10 @@ import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.border.EmptyBorder;
 
+import controller.ConfigurationController;
 import controller.MedicamentController;
 import controller.PersonController;
+import domain.ConfigurationEnum;
 import domain.Medicament;
 import domain.Person;
 
@@ -40,13 +42,15 @@ public class Medication extends JFrame {
 	private JComboBox<String> tomas;
 	private MedicamentController medicationController;
 	private PersonController personController;
+	private ConfigurationController configurationController;
 	
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public Medication(Person person, Medicament medicament) {
+	public Medication(Person person, Medicament medicament, Person userLogin) {
+		configurationController = new ConfigurationController();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -107,8 +111,9 @@ public class Medication extends JFrame {
 
 		
 		
-		
-		String tomasDiarias[]={"1", "2", "3", "4", "5"};
+		Object tomasDiarias[] = configurationController.getConfigurationByCode(ConfigurationEnum.INGEST_NUMBER.name()).getConfigList().stream()
+				.map(x -> x.getValue()).toArray();
+		//String tomasDiarias[]={"1", "2", "3", "4", "5"};
 		tomas=new JComboBox<String>();
 		tomas.setBounds(378, 365, 145, 31);
        
@@ -173,7 +178,7 @@ public class Medication extends JFrame {
 				JOptionPane.showMessageDialog(null, response);
 				if (response.equals("Medicamento actualizado correctamente") || response.equals("Medicamento guardado correctamente")) {
 					
-					User frame = new User(personController.getPerson(person));
+					User frame = new User(personController.getPerson(person), userLogin);
 					frame.setVisible(true);
 					dispose();
 				}
@@ -219,7 +224,7 @@ public class Medication extends JFrame {
 		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User frame = new User(person);
+				User frame = new User(person, userLogin);
 				frame.setVisible(true);
 				dispose();
 			}

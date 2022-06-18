@@ -32,6 +32,8 @@ public class PersonController {
         try{
         	if (person.getUserRef() != null && person.getUserRef().length() > 0) {
         		person.insertOrUpdateContractValid();
+        	}else if (person.getTypeUser().equals("O")){
+        		person.insertOperatorValid();
         	}else {
         		person.insertOrUpdateValid();
         	}
