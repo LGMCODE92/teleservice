@@ -31,6 +31,8 @@ import javax.swing.JToolTip;
 
 public class Configuration extends JFrame {
 
+	private static final String VOLVER = "volver";
+
 	private JPanel contentPane;
 
 	private JComboBox<String> comboSex;
@@ -362,6 +364,25 @@ public class Configuration extends JFrame {
 		separator4.setBackground(new Color(0, 169, 176));
 		separator4.setBounds(302, 556, 145, 2);
 		contentPane.add(separator4);
+		
+		JButton returnButton = new JButton("");
+		returnButton.setIcon(new ImageIcon(Configuration.class.getResource("/images/return.png")));
+		returnButton.setBounds(10, 11, 89, 23);
+	//	returnButton.setToolTipText("volver");
+		returnButton.setBorder(null);
+		returnButton.setFocusable(false);
+		returnButton.setBackground(new Color(244, 247, 255));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Search frame = new Search(userLogin);
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		contentPane.add(returnButton);
+
+		
 
 	}
 

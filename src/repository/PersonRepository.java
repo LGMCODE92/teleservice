@@ -193,10 +193,10 @@ public class PersonRepository {
 		String sql;
 		// List<Map<String, String>> response = new ArrayList<>();
 		if (null != entity.getDocument() && entity.getDocument().length() > 0) {
-			sql = "SELECT * FROM PERSONS WHERE DOCUMENT = ?  AND DELETED = false;";
+			sql = "SELECT * FROM PERSONS WHERE DOCUMENT = ? AND USER_TYPE <> 'O' AND DELETED = false;";
 			control = true;
 		} else {
-			sql = "SELECT * FROM PERSONS WHERE TF = ?  AND DELETED = false;";
+			sql = "SELECT * FROM PERSONS WHERE TF = ? AND USER_TYPE <> 'O' AND DELETED = false;";
 			control = false;
 		}
 

@@ -91,7 +91,9 @@ public class User extends JFrame {
 	private MedicamentController medicamentController;
 
 	/**
-	 * Create the frame.
+	 * User contructor
+	 * @param detalle detalle
+	 * @param userLogin userLogin
 	 */
 	public User(Person detalle, Person userLogin) {
 		this.detalle = detalle;
