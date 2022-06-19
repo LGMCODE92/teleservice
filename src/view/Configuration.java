@@ -67,7 +67,7 @@ public class Configuration extends JFrame {
 		setLocationRelativeTo(null);
 
 		setTitle("Configuration");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 		contentPane.setLayout(null);
 
@@ -366,13 +366,13 @@ public class Configuration extends JFrame {
 		contentPane.add(separator4);
 		
 		JButton returnButton = new JButton("");
-		returnButton.setIcon(new ImageIcon(Configuration.class.getResource("/images/return.png")));
+		returnButton.setIcon(new ImageIcon(Configuration.class.getResource("/img/return.png")));
 		returnButton.setBounds(10, 11, 89, 23);
 	//	returnButton.setToolTipText("volver");
 		returnButton.setBorder(null);
 		returnButton.setFocusable(false);
 		returnButton.setBackground(new Color(244, 247, 255));
-		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("/img/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Search frame = new Search(userLogin);

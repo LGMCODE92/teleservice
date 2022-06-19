@@ -80,7 +80,7 @@ public class Login extends JFrame {
 
 		// titulo e icono de la ventana
 		setTitle("Login");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 
 		
@@ -135,7 +135,7 @@ public class Login extends JFrame {
 		contentPane.add(passwordField);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/images/user.png")));
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/img/user.png")));
 		lblNewLabel.setBounds(250, 11, 285, 313);
 		contentPane.add(lblNewLabel);
 
@@ -168,7 +168,7 @@ public class Login extends JFrame {
 		enterButton.setFocusable(false);
 		enterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		enterButton.setBackground(new Color(244,247,255));
-		enterButton.setIcon(new ImageIcon(getClass().getResource("../images/enter.png")));
+		enterButton.setIcon(new ImageIcon(getClass().getResource("/img/enter.png")));
 		enterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Person res = teleserviceController.login(txtUser.getText(), new String(passwordField.getPassword()));

@@ -62,7 +62,7 @@ public class CallRecord extends JFrame {
 		
 		
 		setTitle("Contact information");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 		contentPane.setLayout(null);
 		
@@ -148,7 +148,7 @@ public class CallRecord extends JFrame {
 		saveButton.setFocusable(false);
 		saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		saveButton.setBorder(null);
-		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
+		saveButton.setIcon(new ImageIcon(getClass().getResource("/img/save.png")));
 		saveButton.setBackground(new Color(244,247,255));
 		saveButton.setBounds(225, 518, 335, 38);
 		saveButton.setBounds(225, 518, 335, 38);
@@ -218,7 +218,7 @@ public class CallRecord extends JFrame {
 		returnButton.setFocusable(false);
 		returnButton.setBackground(new Color(244, 247, 255));
 		returnButton.setBounds(10, 11, 43, 38);
-		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("/img/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				User frame = new User(person, userLogin);

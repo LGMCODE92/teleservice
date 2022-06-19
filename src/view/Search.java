@@ -47,7 +47,7 @@ public class Search extends JFrame {
 	public Search(Person userLogin) {
 
 		setTitle("Search");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,7 +112,7 @@ public class Search extends JFrame {
 		searchButton.setFocusable(false);
 		searchButton.setBackground(new Color(244,247,255));
 		searchButton.setToolTipText("Buscar");
-		searchButton.setIcon(new ImageIcon(getClass().getResource("../images/search.png")));
+		searchButton.setIcon(new ImageIcon(getClass().getResource("/img/search.png")));
 		searchButton.setToolTipText("Buscar");
 
 		searchButton.addActionListener(new ActionListener() {
@@ -163,7 +163,7 @@ public class Search extends JFrame {
 		operatorRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		operatorRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		operatorRegisterButton.setBackground(new Color(244,247,255));
-		operatorRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/operatorLogin.png")));
+		operatorRegisterButton.setIcon(new ImageIcon(getClass().getResource("/img/operatorLogin.png")));
 		operatorRegisterButton.setEnabled(userLogin.getTypeUser().equals("S"));
 		operatorRegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -193,7 +193,7 @@ public class Search extends JFrame {
 		userRegisterButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		userRegisterButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		userRegisterButton.setBackground(new Color(244,247,255));
-		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("../images/userLogin.png")));
+		userRegisterButton.setIcon(new ImageIcon(getClass().getResource("/img/userLogin.png")));
 		userRegisterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ir al alta y cerrar
@@ -228,7 +228,7 @@ public class Search extends JFrame {
 		returnButton.setBorder(null);
 		returnButton.setBackground(new Color(244,247,255));
 		returnButton.setFocusable(false);
-		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("/img/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login frame = new Login();
@@ -245,7 +245,7 @@ public class Search extends JFrame {
 		configButton.setBorder(null);
 		configButton.setBackground(new Color(244, 247, 255));
 		configButton.setBounds(715, 21, 61, 38);
-		configButton.setIcon(new ImageIcon(getClass().getResource("../images/config.png")));
+		configButton.setIcon(new ImageIcon(getClass().getResource("/img/config.png")));
 		configButton.setToolTipText("Configuracion");
 		configButton.setEnabled(userLogin.getTypeUser().equals("S"));
 		configButton.addActionListener(new ActionListener() {

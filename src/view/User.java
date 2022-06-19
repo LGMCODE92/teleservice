@@ -102,7 +102,7 @@ public class User extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// titulo e icono de la ventana
 		setTitle("Ficha / Detalle");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 
 		// centrar el frame en la pantalla
@@ -323,7 +323,7 @@ public class User extends JFrame {
 		returnButton.setBorder(null);
 		returnButton.setFocusable(false);
 		returnButton.setBackground(new Color(244, 247, 255));
-		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("/img/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Search frame = new Search(userLogin);

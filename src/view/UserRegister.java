@@ -78,7 +78,7 @@ public class UserRegister extends JFrame {
 		setLocationRelativeTo(null);
 
 		setTitle("User register");
-		Image img = new ImageIcon(getClass().getResource("../images/login.png")).getImage();
+		Image img = new ImageIcon(getClass().getResource("/img/login.png")).getImage();
 		setIconImage(img);
 		contentPane.setLayout(null);
 
@@ -200,7 +200,7 @@ public class UserRegister extends JFrame {
 		saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		saveButton.setBorder(null);
 		saveButton.setFocusable(false);
-		saveButton.setIcon(new ImageIcon(getClass().getResource("../images/save.png")));
+		saveButton.setIcon(new ImageIcon(getClass().getResource("/img/save.png")));
 		saveButton.setBackground(new Color(244, 247, 255));
 		saveButton.setBounds(268, 553, 250, 38);
 		saveButton.addActionListener(new ActionListener() {
@@ -383,7 +383,7 @@ public class UserRegister extends JFrame {
 		returnButton.setBackground(new Color(244, 247, 255));
 		returnButton.setBounds(10, 11, 43, 38);
 		returnButton.setFocusable(false);
-		returnButton.setIcon(new ImageIcon(getClass().getResource("../images/return.png")));
+		returnButton.setIcon(new ImageIcon(getClass().getResource("/img/return.png")));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Search frame = new Search(userLogin);
